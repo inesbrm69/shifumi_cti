@@ -5,13 +5,11 @@ import java.io.Serializable;
 public class Message implements Serializable{
 	private String sender;
 	private String content;
-	private int shifumi;
 	
-	public Message(String sender, String content, int shifumi) {
+	public Message(String sender, String content) {
 		super();
 		this.sender = sender;
 		this.content = content;
-		this.shifumi = shifumi;
 	}
 
 	@Override
@@ -33,14 +31,6 @@ public class Message implements Serializable{
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public int getShifumi() {
-		return shifumi;
-	}
-
-	public void setShifumi(int shifumi) {
-		this.shifumi = shifumi;
 	}
 	
 	

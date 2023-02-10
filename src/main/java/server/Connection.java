@@ -1,7 +1,5 @@
 package server;
 
-import common.Player;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,7 +25,7 @@ public class Connection implements Runnable{
 			while(true) {
 				Socket sockNewClient = serverSocket.accept();
 				
-				Player newClient = new Player(server, sockNewClient);
+				ConnectedClient newClient = new ConnectedClient(server, sockNewClient);
 				newClient.setId(server.getNumClients()) ;
 				
 				server.addClient(newClient);
