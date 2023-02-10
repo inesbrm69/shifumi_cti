@@ -9,23 +9,16 @@ import java.net.Socket;
 
 public class Client {
 
-	private static String pseudo = null;
 	private String address;
 	private int port;
-
-	public static String getPseudo() {
-		return pseudo;
-	}
-
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	
-	public Client(String address, int port, String pseudo) {
+	public Client(String address, int port) {
 		super();
 		this.address = address;
 		this.port = port;
-		this.pseudo = pseudo;
 		
 		try {
 			this.socket = new Socket(address, port);

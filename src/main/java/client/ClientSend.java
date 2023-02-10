@@ -23,8 +23,7 @@ public class ClientSend implements Runnable {
 		while (true) {
 			System.out.print("Votre message >> ");
 			String m = sc.nextLine();
-			String pseudo = Client.getPseudo();
-			Message mess = new Message(pseudo, m);
+			Message mess = new Message("client", m);
 			try {
 				out.writeObject(mess);
 				out.flush();
