@@ -1,31 +1,26 @@
 package client;
 
-import common.Message;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
+
+import common.Message;
+import server.Connection;
 
 public class Client {
 
-	private static String pseudo = null;
 	private String address;
 	private int port;
-
-	public static String getPseudo() {
-		return pseudo;
-	}
-
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	
-	public Client(String address, int port, String pseudo) {
+	public Client(String address, int port) {
 		super();
 		this.address = address;
 		this.port = port;
-		this.pseudo = pseudo;
 		
 		try {
 			this.socket = new Socket(address, port);

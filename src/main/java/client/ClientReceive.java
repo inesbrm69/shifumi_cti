@@ -1,10 +1,11 @@
 package client;
 
-import common.Message;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import common.Message;
 
 public class ClientReceive implements Runnable {
 	private Client client;

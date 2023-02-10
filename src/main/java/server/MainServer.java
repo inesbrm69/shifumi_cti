@@ -1,5 +1,7 @@
 package server;
 
+import java.io.IOException;
+
 public class MainServer {
 
 	/** * creates a new server * @param args */
@@ -7,8 +9,7 @@ public class MainServer {
 		if (args.length != 1) {
 			printUsage();
 		} else {
-            System.out.println(args[0]);
-			Integer port = Integer.parseInt(args[0]);
+			Integer port = new Integer(args[0]);
 			Server server = new Server(port);
 		}
 	}

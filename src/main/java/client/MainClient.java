@@ -1,19 +1,17 @@
 package client;
 
-import java.util.Scanner;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class MainClient {
 	/** * construct a new client * @param args */
 	public static void main(String[] args) {
-		if (args.length != 3) {
+		if (args.length != 2) {
 			printUsage();
 		} else {
-			Scanner scPseudo = new Scanner(System.in);
-			System.out.print("Votre pseudo >> ");
-			String pseudo = scPseudo.nextLine();
 			String address = args[0];
-			Integer port = Integer.parseInt(args[1]);
-			Client c = new Client(address, port, pseudo);
+			Integer port = new Integer(args[1]);
+			Client c = new Client(address, port);
 		}
 	}
 
