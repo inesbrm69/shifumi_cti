@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ShiFuMiController {
+
     @FXML
 
     public void nextPage(ActionEvent e) throws IOException {

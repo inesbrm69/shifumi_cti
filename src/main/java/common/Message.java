@@ -2,11 +2,23 @@ package common;
 
 import java.io.Serializable;
 
-public class Message implements Serializable{
+public class Message implements Serializable {
 	private String sender;
 	private String content;
+	// shifumi = 0 : pierre
+	// shifumi = 1 : feuille
+	// shifumi = 2 : ciseau
 	private int shifumi;
-	
+
+	public Message(String content) {
+		super();
+		this.content = content;
+	}
+	public Message(String sender, String content) {
+		super();
+		this.sender = sender;
+		this.content = content;
+	}
 	public Message(String sender, String content, int shifumi) {
 		super();
 		this.sender = sender;
@@ -16,7 +28,7 @@ public class Message implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Sender:"+ sender + ", says:" + content + "]";
+		return sender + " :" + content;
 	}
 
 	public String getSender() {
@@ -42,7 +54,5 @@ public class Message implements Serializable{
 	public void setShifumi(int shifumi) {
 		this.shifumi = shifumi;
 	}
-	
-	
-	
+
 }

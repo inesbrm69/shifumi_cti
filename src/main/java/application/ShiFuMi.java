@@ -1,5 +1,6 @@
 package application;
 
+import client.Client;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +12,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import server.ConnectedClient;
+import server.Server;
 
 import java.io.IOException;
 
 public class ShiFuMi extends Application{
-
-
     @Override
     public void start(Stage stage) throws Exception {
         AnchorPane pageStart = FXMLLoader.load(ShiFuMi.class.getResource("pageStart.fxml"));
