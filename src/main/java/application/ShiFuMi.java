@@ -20,6 +20,7 @@ import java.io.IOException;
 public class ShiFuMi extends Application{
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setResizable(false);
         AnchorPane pageStart = FXMLLoader.load(ShiFuMi.class.getResource("pageStart.fxml"));
         Scene page_Start = new Scene(pageStart);
         stage.setScene(page_Start);
