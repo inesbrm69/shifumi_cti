@@ -1,5 +1,6 @@
 package application;
 
+import common.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +51,7 @@ public class AuthController {
         stage.setScene(scene);
         stage.show();
 
-        boolean canLogIn = checkLogin();
+        boolean canLogIn = checkLogIn();
 
         if(canLogIn){
             AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
@@ -61,16 +62,20 @@ public class AuthController {
         }
     }
 
-    private boolean checkLogin() throws IOException {
+    private boolean checkLogIn() throws IOException {
 
-        //
-        String passwordDb;
-        String usernameDb;
+        Player player = connectionDB.getPlayerByUsername(username.getText().toString());
 
-        if(username.getText().toString().equals("javacoding") && password.getText().toString().equals("123")){
+        String passwordDb = null;
+
+        if(player != null){
+            passwordDb = player.getPassword();
+        }
+
+        if(username.getText().toString().equals(player.getUsername()) && password.getText().toString().equals(passwordDb)){
             return true;
         }
-        else if(username.getText().isEmpty() && password.getText().isEmpty()){
+        else if(username.getText().isEmpty() || password.getText().isEmpty()){
             errorMsg.setText("Please enter your username and password");
             return false;
         }
