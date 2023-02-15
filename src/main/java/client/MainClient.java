@@ -20,10 +20,11 @@ public class MainClient{
 		if (args.length != 2) {
 			printUsage();
 		} else {
-			/*Application.launch(ShiFuMi.class,args);*/
+
 			String address = args[0];
 			Integer port = new Integer(args[1]);
 			Client c = new Client(address, port);
+			Application.launch(ShiFuMi.class,args);
 
 		}
 
