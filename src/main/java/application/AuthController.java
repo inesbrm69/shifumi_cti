@@ -147,7 +147,6 @@ public class AuthController {
     }
 
     private boolean checkLogIn() throws IOException {
-        //garder le try/catch ?
         try {
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
 
@@ -158,6 +157,11 @@ public class AuthController {
             }
 
             if (username.getText().toString().equals(player.getUsername()) && password.getText().toString().equals(passwordDb)) {
+                var persoChanged = connectionDB.changePerso(player, getChoicePerso());
+                if(!persoChanged){
+                    errorMsg.setText("There was an error with your character, try again.");
+                    return false;
+                }
                 return true;
             } else if (username.getText().isEmpty() || password.getText().isEmpty()) {
                 errorMsg.setText("Please enter your username and password");
@@ -180,6 +184,7 @@ public class AuthController {
             errorMsg.setText("Your account was created. Please log in.");
             username.setText("");
             password.setText("");
+            choosePerso(999);
         }
         else{
             errorMsg.setText("There was an error, please try again.");
@@ -187,15 +192,14 @@ public class AuthController {
     }
 
     private boolean checkSignIn() throws IOException{
-        //garder le try/catch ?
         try{
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
 
-            if (player == null) {
+            if (player.getId() == 0) {
                 boolean playerAdded = connectionDB.addNewPlayer(new Player(0, username.getText().toString(), password.getText().toString(), 0, choicePerso ));
                 return playerAdded;
             }
-            else if(player != null){
+            else if(player.getId() != 0){
                 errorMsg.setText("This username is already taken.");
                 return false;
             }
@@ -212,6 +216,22 @@ public class AuthController {
         return false;
     }
 
+    public void choosePersoZero(){
+        choosePerso(0);
+    }
+
+    public void choosePersoOne(){
+        choosePerso(1);
+    }
+
+    public void choosePersoTwo(){
+        choosePerso(2);
+    }
+
+    public void choosePersoThree(){
+        choosePerso(3);
+    }
+
     public void choosePerso(int choice){
         //ajouter choosePerso sur les boutons dans le fichier fxml en format choosePerso(0) choosePerso(1)...
         switch (choice){
@@ -226,7 +246,7 @@ public class AuthController {
                     imageTwo.setStyle("-fx-background-color: none;");
                     imageThree.setStyle("-fx-background-color: none;");
                 }
-                //-fx-background-color: none;
+                setChoicePerso(choice);
                 break;
             case 1:
                 imageOne.setStyle("-fx-background-color: none;" +
@@ -237,6 +257,7 @@ public class AuthController {
                 imageZero.setStyle("-fx-background-color: none;");
                 imageTwo.setStyle("-fx-background-color: none;");
                 imageThree.setStyle("-fx-background-color: none;");
+                setChoicePerso(choice);
                 break;
             case 2:
                 imageTwo.setStyle("-fx-background-color: none;" +
@@ -247,6 +268,7 @@ public class AuthController {
                 imageZero.setStyle("-fx-background-color: none;");
                 imageOne.setStyle("-fx-background-color: none;");
                 imageThree.setStyle("-fx-background-color: none;");
+                setChoicePerso(choice);
                 break;
             case 3:
                 imageThree.setStyle("-fx-background-color: none;" +
@@ -257,9 +279,15 @@ public class AuthController {
                 imageZero.setStyle("-fx-background-color: none;");
                 imageOne.setStyle("-fx-background-color: none;");
                 imageTwo.setStyle("-fx-background-color: none;");
+                setChoicePerso(choice);
+                break;
+            default:
+                imageZero.setStyle("-fx-background-color: none;");
+                imageOne.setStyle("-fx-background-color: none;");
+                imageTwo.setStyle("-fx-background-color: none;");
+                imageThree.setStyle("-fx-background-color: none;");
                 break;
         }
-        setChoicePerso(choice);
     }
 
 }
