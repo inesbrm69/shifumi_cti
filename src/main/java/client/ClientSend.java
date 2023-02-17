@@ -1,11 +1,11 @@
 package client;
 
-import common.Message;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
+
+import common.Message;
 
 public class ClientSend implements Runnable {
 	private Socket socket;
@@ -23,8 +23,7 @@ public class ClientSend implements Runnable {
 		while (true) {
 			System.out.print("Votre message >> ");
 			String m = sc.nextLine();
-			String pseudo = Client.getPseudo();
-			Message mess = new Message(pseudo, m);
+			Message mess = new Message("client", m, 0);
 			try {
 				out.writeObject(mess);
 				out.flush();

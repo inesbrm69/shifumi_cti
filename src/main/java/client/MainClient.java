@@ -1,20 +1,32 @@
 package client;
 
-import java.util.Scanner;
+import application.App;
+import application.Jeu;
+import application.JeuController;
+import application.ShiFuMi;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class MainClient {
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import static javafx.application.Application.launch;
+
+public class MainClient{
 	/** * construct a new client * @param args */
-	public static void main(String[] args) {
-		if (args.length != 3) {
+	public static void main(String[] args) throws IOException {
+		if (args.length != 2) {
 			printUsage();
 		} else {
-			Scanner scPseudo = new Scanner(System.in);
-			System.out.print("Votre pseudo >> ");
-			String pseudo = scPseudo.nextLine();
+
 			String address = args[0];
-			Integer port = Integer.parseInt(args[1]);
-			Client c = new Client(address, port, pseudo);
+			Integer port = new Integer(args[1]);
+			Client c = new Client(address, port);
+
 		}
+
 	}
 
 	private static void printUsage() {

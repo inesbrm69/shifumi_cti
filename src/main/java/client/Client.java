@@ -1,31 +1,78 @@
 package client;
 
-import common.Message;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
+
+import application.JeuController;
+import application.ShiFuMiController;
+import common.Message;
+import server.Connection;
 
 public class Client {
 
-	private static String pseudo = null;
 	private String address;
 	private int port;
-
-	public static String getPseudo() {
-		return pseudo;
-	}
-
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	
-	public Client(String address, int port, String pseudo) {
+
+	private JeuController view;
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
+	public ObjectInputStream getIn() {
+		return in;
+	}
+
+	public void setIn(ObjectInputStream in) {
+		this.in = in;
+	}
+
+	public ObjectOutputStream getOut() {
+		return out;
+	}
+
+	public void setOut(ObjectOutputStream out) {
+		this.out = out;
+	}
+
+	public JeuController getView() {
+		return view;
+	}
+
+	public void setView(JeuController view) {
+		this.view = view;
+	}
+
+	public Client(String address, int port) {
 		super();
 		this.address = address;
 		this.port = port;
-		this.pseudo = pseudo;
 		
 		try {
 			this.socket = new Socket(address, port);
@@ -61,7 +108,12 @@ public class Client {
 	}
 
 	public void messageReceived(Message mess) {
-		System.out.println(mess);
+		view.printNewMessage(mess);
+	}
+
+	public void sendMessage(Message message) throws IOException {
+		this.out.writeObject(message);
+		this.out.flush();
 	}
 	
 	
