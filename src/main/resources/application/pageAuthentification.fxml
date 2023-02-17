@@ -10,28 +10,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="1196.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="1196.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AuthController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1199.0" layoutX="-1.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/authentification.png" />
          </image>
       </ImageView>
-      <TextField fx:id="username" layoutX="396.0" layoutY="181.0" prefHeight="39.0" prefWidth="394.0" />
-      <Label layoutX="268.0" layoutY="188.0" text="Username" textFill="WHITE">
+      <TextField fx:id="username" layoutX="410.0" layoutY="148.0" prefHeight="39.0" prefWidth="394.0" />
+      <Label layoutX="282.0" layoutY="155.0" text="Username" textFill="WHITE">
          <font>
             <Font name="Arial Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="271.0" layoutY="254.0" text="Password" textFill="WHITE">
+      <Label layoutX="285.0" layoutY="215.0" text="Password" textFill="WHITE">
          <font>
             <Font name="Arial Italic" size="24.0" />
          </font>
       </Label>
-      <PasswordField fx:id="password" layoutX="394.0" layoutY="250.0" prefHeight="38.0" prefWidth="393.0" />
-      <Button fx:id="imageZero" layoutX="196.0" layoutY="332.0" mnemonicParsing="false" style="-fx-background-color: none;">
+      <PasswordField fx:id="password" layoutX="408.0" layoutY="211.0" prefHeight="38.0" prefWidth="393.0" />
+      <Button fx:id="imageZero" layoutX="185.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoZero" style="-fx-background-color: none; -fx-border-style: solid inside; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #21EF80;">
          <graphic>
-            <ImageView fitHeight="173.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/0.png" />
                </image>
@@ -44,7 +44,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="imageOn" layoutX="401.0" layoutY="319.0" mnemonicParsing="false" style="-fx-background-color: none;">
+      <Button fx:id="imageOn" layoutX="401.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoOne" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -59,7 +59,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="imageTwo" layoutX="626.0" layoutY="316.0" mnemonicParsing="false" style="-fx-background-color: none;">
+      <Button fx:id="imageTwo" layoutX="626.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoTwo" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -74,7 +74,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="imageThree" layoutX="827.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-color: none;">
+      <Button fx:id="imageThree" layoutX="827.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoThree" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -89,7 +89,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="signIn" layoutX="377.0" layoutY="500.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="187.0" style="-fx-background-color: none;">
+      <Button fx:id="signIn" layoutX="377.0" layoutY="500.0" mnemonicParsing="false" onAction="#userSignIn" prefHeight="89.0" prefWidth="187.0" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="78.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -103,7 +103,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="logIn" layoutX="621.0" layoutY="512.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="108.0" style="-fx-background-color: none;">
+      <Button fx:id="logIn" layoutX="621.0" layoutY="512.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="54.0" prefWidth="108.0" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="69.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -118,7 +118,15 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="errorMsg" layoutX="448.0" layoutY="121.0" prefHeight="29.0" prefWidth="282.0" textAlignment="CENTER" textFill="RED" />
+      <Label fx:id="errorMsg" layoutX="457.0" layoutY="98.0" prefHeight="29.0" prefWidth="282.0" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="464.0" layoutY="267.0" text="Choose your character !" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />

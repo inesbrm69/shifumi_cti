@@ -15,11 +15,12 @@ public class ShiFuMiController {
     @FXML
 
     public void nextPage(ActionEvent e) throws IOException {
-        AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
-        Scene scene = new Scene(gamePage);
+        AnchorPane authPage = FXMLLoader.load(Jeu.class.getResource("pageAuthentification.fxml"));
+        Scene scene = new Scene(authPage);
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+
 
     }
 }

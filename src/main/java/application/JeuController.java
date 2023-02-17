@@ -93,7 +93,6 @@ public class JeuController {
             }
         });
     }
-
     @FXML
     public void onSendData() throws IOException {
         Message message = new Message("Moi",getChampMessage().getText());
@@ -101,37 +100,4 @@ public class JeuController {
         champMessage.setText("");
         client.sendMessage(message);
     }
-    /*@Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnSend.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String messageToSend = champMessage.getText();
-                if(!messageToSend.isEmpty()){
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5,5,5,10));
-
-                    Text text = new Text(messageToSend);
-                    TextFlow textFlow = new TextFlow(text);
-
-                    textFlow.setStyle("-fx-color: rgb(239,242,255)"+
-                        "-fx-background-color: rgb(15,125,242)"+
-                        "-fx-background-raduis: 20px");
-
-                    textFlow.setPadding(new Insets(5,10,5,10));
-                    text.setFill(Color.color(0.934,0.945,0.996));
-
-                    hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
-
-
-
-                    client.messageReceived(new Message(messageToSend));
-                    *//*server.messageToPlayers(new Message(messageToSend),);*//*
-
-                }
-            }
-        });
-    }*/
 }
