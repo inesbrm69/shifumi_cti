@@ -15,17 +15,17 @@
    <children>
       <ImageView fitHeight="51.0" fitWidth="276.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/shifumi.title.png" />
+            <Image url="@images/shifumi.title.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="485.0" fitWidth="796.0" layoutX="73.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/green-bg.png" />
+            <Image url="@images/green-bg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="513.0" fitWidth="750.0" layoutX="91.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/centrepkm_WB.png" />
+            <Image url="@images/centrepkm_WB.png" />
          </image>
       </ImageView>
       <TextField fx:id="champMessage" layoutX="396.0" layoutY="587.0" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
@@ -40,7 +40,7 @@
          <graphic>
             <ImageView fitHeight="48.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/sendMessageButton.png" />
+                  <Image url="@images/sendMessageButton.png" />
                </image>
             </ImageView>
          </graphic>

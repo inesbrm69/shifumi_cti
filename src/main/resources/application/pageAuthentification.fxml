@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="1199.0" layoutX="-1.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/authentification.png" />
+            <Image url="@images/authentification.png" />
          </image>
       </ImageView>
       <TextField fx:id="username" layoutX="410.0" layoutY="148.0" prefHeight="39.0" prefWidth="394.0" />
@@ -33,7 +33,7 @@
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/0.png" />
+                  <Image url="@images/0.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -44,11 +44,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="imageOn" layoutX="401.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoOne" style="-fx-background-color: none;">
+      <Button id="imageOne" fx:id="imageOne" layoutX="401.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoOne" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/1.png" />
+                  <Image url="@images/1.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -63,7 +63,7 @@
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/2.png" />
+                  <Image url="@images/2.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -78,7 +78,7 @@
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/3.png" />
+                  <Image url="@images/3.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -93,7 +93,7 @@
          <graphic>
             <ImageView fitHeight="78.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/signin.png" />
+                  <Image url="@images/signin.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -107,7 +107,7 @@
          <graphic>
             <ImageView fitHeight="69.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Documents/LP_DEVOPS/shifumi_cti/src/main/resources/application/images/login.png" />
+                  <Image url="@images/login.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
