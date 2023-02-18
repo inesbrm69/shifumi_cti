@@ -128,7 +128,6 @@ public class JeuController{
         printNewMessage(message);
         champMessage.setText("");
         this.client = ClientSingleton.getInstance().getObject();
-        //Client client = MainClient.getClient();
         this.client.sendMessage(message);
     }
 }
