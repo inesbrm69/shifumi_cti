@@ -21,7 +21,7 @@ import java.util.List;
 public class ShiFuMi extends Application{
     @Override
     public void start(Stage stage) throws Exception {
-        /*List<String> parameters = this.getParameters().getRaw();
+        List<String> parameters = this.getParameters().getRaw();
 
         String address = parameters.get(0);
         int port =  Integer.parseInt(parameters.get(1));
@@ -29,19 +29,19 @@ public class ShiFuMi extends Application{
         Client client = new Client(address,port);
         final FXMLLoader FXMloader = new FXMLLoader(Jeu.class.getResource("pageStart.fxml"));
         Scene scene = new Scene(FXMloader.load());
-        stage.show();
-        *//*JeuController view = FXMloader.getController();*//*
-        *//*client.setView(view);
-        view.setClient(client);*//*
+        JeuController view = FXMloader.getController();
+        client.setView(view);
+        view.setClient(client);
         stage.setTitle("DevOps Chat");
-        stage.setScene(scene);*/
+        stage.setScene(scene);
+        stage.show();
 
 
-        AnchorPane pageStart = FXMLLoader.load(ShiFuMi.class.getResource("pageStart.fxml"));
+        /*AnchorPane pageStart = FXMLLoader.load(ShiFuMi.class.getResource("pageStart.fxml"));
         Scene page_Start = new Scene(pageStart);
         stage.setScene(page_Start);
         stage.setTitle("ShiFuMi.CTI");
-        stage.show();
+        stage.show();*/
     }
 
     public static void main(String[] args) {
