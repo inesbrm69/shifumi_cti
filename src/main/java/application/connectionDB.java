@@ -100,7 +100,7 @@ public class connectionDB {
         String[] properties = getDBProperties();
 
         //password à modifier pour hashage
-        String queryDb = "INSERT INTO UTILISATEUR (username, password, score, perso) VALUES ('"+ player.getUsername()+ "', '"+ player.getPassword() +"', 0, "+ player.getPerso() +")";
+        String queryDb = "INSERT INTO UTILISATEUR (username, password, perso) VALUES ('"+ player.getUsername()+ "', '"+ player.getPassword() +"', "+ player.getPerso() +")";
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
