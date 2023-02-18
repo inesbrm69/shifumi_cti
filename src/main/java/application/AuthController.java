@@ -295,59 +295,56 @@ public class AuthController {
     }
 
     public void choosePerso(int choice){
-        //ajouter choosePerso sur les boutons dans le fichier fxml en format choosePerso(0) choosePerso(1)...
+
+        String styleWithBorder = "-fx-background-color: none;" +
+                " -fx-border-style: solid inside;" +
+                "-fx-border-width: 2; " +
+                "-fx-border-radius: 5; " +
+                "-fx-border-color:  #21EF80;";
+
+        String styleWithoutBorder = "-fx-background-color: none;";
+
         switch (choice){
             case 0:
                 if(getChoicePerso() != 0){
-                    imageZero.setStyle("-fx-background-color: none;" +
-                            " -fx-border-style: solid inside;" +
-                            "-fx-border-width: 2; " +
-                            "-fx-border-radius: 5; " +
-                            "-fx-border-color:  #21EF80;");
-                    imageOne.setStyle("-fx-background-color: none;");
-                    imageTwo.setStyle("-fx-background-color: none;");
-                    imageThree.setStyle("-fx-background-color: none;");
+                    imageZero.setStyle(styleWithBorder);
+
+                    imageOne.setStyle(styleWithoutBorder);
+                    imageTwo.setStyle(styleWithoutBorder);
+                    imageThree.setStyle(styleWithoutBorder);
                 }
                 setChoicePerso(choice);
                 break;
             case 1:
-                imageOne.setStyle("-fx-background-color: none;" +
-                        " -fx-border-style: solid inside;" +
-                        "-fx-border-width: 2; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-border-color:  #21EF80;");
-                imageZero.setStyle("-fx-background-color: none;");
-                imageTwo.setStyle("-fx-background-color: none;");
-                imageThree.setStyle("-fx-background-color: none;");
+                imageOne.setStyle(styleWithBorder);
+
+                imageZero.setStyle(styleWithoutBorder);
+                imageTwo.setStyle(styleWithoutBorder);
+                imageThree.setStyle(styleWithoutBorder);
                 setChoicePerso(choice);
                 break;
             case 2:
-                imageTwo.setStyle("-fx-background-color: none;" +
-                        " -fx-border-style: solid inside;" +
-                        "-fx-border-width: 2; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-border-color:  #21EF80;");
-                imageZero.setStyle("-fx-background-color: none;");
-                imageOne.setStyle("-fx-background-color: none;");
-                imageThree.setStyle("-fx-background-color: none;");
+                imageTwo.setStyle(styleWithBorder);
+
+                imageZero.setStyle(styleWithoutBorder);
+                imageOne.setStyle(styleWithoutBorder);
+                imageThree.setStyle(styleWithoutBorder);
                 setChoicePerso(choice);
                 break;
             case 3:
-                imageThree.setStyle("-fx-background-color: none;" +
-                        " -fx-border-style: solid inside;" +
-                        "-fx-border-width: 2; " +
-                        "-fx-border-radius: 5; " +
-                        "-fx-border-color:  #21EF80;");
-                imageZero.setStyle("-fx-background-color: none;");
-                imageOne.setStyle("-fx-background-color: none;");
-                imageTwo.setStyle("-fx-background-color: none;");
+                imageThree.setStyle(styleWithBorder);
+
+                imageZero.setStyle(styleWithoutBorder);
+                imageOne.setStyle(styleWithoutBorder);
+                imageTwo.setStyle(styleWithoutBorder);
                 setChoicePerso(choice);
                 break;
             default:
-                imageZero.setStyle("-fx-background-color: none;");
-                imageOne.setStyle("-fx-background-color: none;");
-                imageTwo.setStyle("-fx-background-color: none;");
-                imageThree.setStyle("-fx-background-color: none;");
+                imageZero.setStyle(styleWithBorder);
+
+                imageOne.setStyle(styleWithoutBorder);
+                imageTwo.setStyle(styleWithoutBorder);
+                imageThree.setStyle(styleWithoutBorder);
                 break;
         }
     }
