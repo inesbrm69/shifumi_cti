@@ -80,16 +80,16 @@ public class Client {
 			this.out = new ObjectOutputStream(socket.getOutputStream());
 			
 			
-			Thread threadClientSend = new Thread(new ClientSend(socket, this.out));;
-			threadClientSend.start();
+			/*Thread threadClientSend = new Thread(new ClientSend(socket, this.out));;
+			threadClientSend.start();*/
 			Thread threadClientReceive = new Thread(new ClientReceive(this, socket));
 			threadClientReceive.start();
 			
-			try {
-				threadClientSend.join();
+			/*try {
+				*//*threadClientSend.join();*//*
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

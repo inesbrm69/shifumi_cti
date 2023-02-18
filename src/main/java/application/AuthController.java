@@ -146,15 +146,13 @@ public class AuthController {
         boolean canLogIn = checkLogIn();
 
         if(canLogIn){
-
             AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stageGame.setScene(sceneGame);
-            Auth auth = new Auth();
-            Client client = auth.launchClient();
-            client.setView(this);
+            Client client = new Client("127.0.0.1",50000);
             this.setClient(client);
+            client.setView(this);
             stageGame.show();
         }
     }
