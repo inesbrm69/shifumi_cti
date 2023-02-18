@@ -115,19 +115,16 @@ public class JeuController{
         });
     }
 
-    public Message getMessage(){
-        Player player = PlayerSingleton.getInstance().getObject();
-        Message message = new Message(player.getUsername(), getChampMessage().getText());
-        return message;
-    }
-
     @FXML
     public void onSendData() throws IOException {
         this.player = PlayerSingleton.getInstance().getObject();
-        Message message = new Message(player.getUsername(), getChampMessage().getText());
-        printNewMessage(message);
-        champMessage.setText("");
-        this.client = ClientSingleton.getInstance().getObject();
-        this.client.sendMessage(message);
+        if(!getChampMessage().getText().isEmpty()){
+            Message message = new Message(player.getUsername(), getChampMessage().getText());
+            printNewMessage(message);
+            champMessage.setText("");
+            this.client = ClientSingleton.getInstance().getObject();
+            this.client.sendMessage(message);
+        }
+
     }
 }
