@@ -19,7 +19,10 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
 
 public class AuthController {
     @FXML
@@ -150,10 +153,34 @@ public class AuthController {
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stageGame.setScene(sceneGame);
-            Client client = new Client("127.0.0.1",50000);
+            String[] properties = getServerProperties();
+            Client client = new Client(properties[0], Integer.parseInt(properties[1]));
             this.setClient(client);
             client.setView(this);
             stageGame.show();
+        }
+    }
+
+    public String[] getServerProperties(){
+        try {
+            Properties prop = new Properties();
+            FileInputStream input = null;
+            input = new FileInputStream("src/main/resources/application/config.properties");
+            prop.load(input);
+            String address = prop.getProperty("address");
+            String port = prop.getProperty("port");
+
+            String[] properties = new String[2];
+
+            properties[0] = address;
+            properties[1] = port;
+
+            return properties;
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
