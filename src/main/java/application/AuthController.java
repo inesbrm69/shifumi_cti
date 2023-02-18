@@ -1,9 +1,13 @@
 package application;
 
+import client.Client;
+import common.Message;
 import common.Player;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -46,6 +50,8 @@ public class AuthController {
     private Label errorMsg;
 
     private int choicePerso = 0;
+
+    private Client client;
 
     public TextField getUsername() {
         return username;
@@ -127,14 +133,16 @@ public class AuthController {
         this.choicePerso = choicePerso;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @FXML
     public void userLogIn(ActionEvent e) throws IOException {
-        //AnchorPane authPage = FXMLLoader.load(Jeu.class.getResource("pageAuthentification.fxml"));
-        //Scene scene = new Scene(authPage);
-        //Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        //stage.setScene(scene);
-        //stage.show();
-
         boolean canLogIn = checkLogIn();
 
         if(canLogIn){
@@ -142,6 +150,9 @@ public class AuthController {
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stageGame.setScene(sceneGame);
+            Client client = new Client("127.0.0.1",50000);
+            this.setClient(client);
+            client.setView(this);
             stageGame.show();
         }
     }
@@ -289,5 +300,4 @@ public class AuthController {
                 break;
         }
     }
-
 }
