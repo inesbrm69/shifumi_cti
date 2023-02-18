@@ -18,9 +18,9 @@
          </image>
       </ImageView>
       <TextField fx:id="username" layoutX="410.0" layoutY="148.0" prefHeight="39.0" prefWidth="394.0" />
-      <Label layoutX="282.0" layoutY="155.0" text="Username" textFill="WHITE">
+      <Label layoutX="282.0" layoutY="155.0" style="-fx-font-family: Minecraftia Regular;" text="Username" textFill="WHITE">
          <font>
-            <Font name="Arial Italic" size="24.0" />
+            <Font name="Arial" size="24.0" />
          </font>
       </Label>
       <Label layoutX="285.0" layoutY="215.0" text="Password" textFill="WHITE">
@@ -122,7 +122,7 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="464.0" layoutY="267.0" text="Choose your character !" textFill="WHITE">
+      <Label fx:id="labelChooseCharacter" layoutX="464.0" layoutY="267.0" text="Choose your character !" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
