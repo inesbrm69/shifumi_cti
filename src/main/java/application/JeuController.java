@@ -2,7 +2,10 @@ package application;
 
 import client.Client;
 import client.MainClient;
+import common.ClientSingleton;
 import common.Message;
+import common.Player;
+import common.PlayerSingleton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,12 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import server.ConnectedClient;
 import server.Connection;
 import server.MainServer;
@@ -25,7 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class JeuController {
+public class JeuController{
 
     @FXML
     private Button btnSend;
@@ -37,7 +42,8 @@ public class JeuController {
     private ScrollPane scrollPane;
 
     private Server server;
-    //private Client client;
+    private Client client;
+    private Player player;
 
     private ConnectedClient connectedClient;
 
@@ -73,18 +79,29 @@ public class JeuController {
         this.scrollPane = scrollPane;
     }
 
-    //public Client getClient() {
-        //return client;
-    //}
+    public Player getPlayer() {
+        return player;
+    }
 
-    //public void setClient(Client client) {
-        //this.client = client;
-    //}
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-    //public JeuController(Client client){
-      //  this.client = client;
-    //}
+    public Client getClient() {
+        return client;
+    }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setUser(ActionEvent e){
+        Node node = (Node) e.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Player player = (Player) stage.getUserData();
+        this.player.setUsername(player.getUsername());
+        this.player.setId(player.getId());
+    }
 
     public void printNewMessage(Message message){
         Platform.runLater(new Runnable() {
@@ -97,12 +114,21 @@ public class JeuController {
             }
         });
     }
+
+    public Message getMessage(){
+        Player player = PlayerSingleton.getInstance().getObject();
+        Message message = new Message(player.getUsername(), getChampMessage().getText());
+        return message;
+    }
+
     @FXML
     public void onSendData() throws IOException {
-        Message message = new Message("Moi",getChampMessage().getText());
+        this.player = PlayerSingleton.getInstance().getObject();
+        Message message = new Message(player.getUsername(), getChampMessage().getText());
         printNewMessage(message);
         champMessage.setText("");
+        this.client = ClientSingleton.getInstance().getObject();
         //Client client = MainClient.getClient();
-        //client.sendMessage(message);
+        this.client.sendMessage(message);
     }
 }

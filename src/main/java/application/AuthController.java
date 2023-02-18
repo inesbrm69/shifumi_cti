@@ -1,8 +1,10 @@
 package application;
 
 import client.Client;
+import common.ClientSingleton;
 import common.Message;
 import common.Player;
+import common.PlayerSingleton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +57,8 @@ public class AuthController {
     private int choicePerso = 0;
 
     private Client client;
+
+    private Player player = new Player(0, null, null, 0, 0);
 
     public TextField getUsername() {
         return username;
@@ -144,6 +148,16 @@ public class AuthController {
         this.client = client;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
+
     @FXML
     public void userLogIn(ActionEvent e) throws IOException {
         boolean canLogIn = checkLogIn();
@@ -152,11 +166,14 @@ public class AuthController {
             AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            //stageGame.setUserData(this.player);
+            PlayerSingleton.getInstance().setObject(this.player);
             stageGame.setScene(sceneGame);
             String[] properties = getServerProperties();
             Client client = new Client(properties[0], Integer.parseInt(properties[1]));
             this.setClient(client);
             client.setView(this);
+            ClientSingleton.getInstance().setObject(this.client);
             stageGame.show();
         }
     }
@@ -200,6 +217,13 @@ public class AuthController {
                     errorMsg.setText("There was an error with your character, try again.");
                     return false;
                 }
+
+                this.player.setId(player.getId());
+                this.player.setPerso(player.getPerso());
+                this.player.setScore(player.getScore());
+                this.player.setPassword(player.getPassword());
+                this.player.setUsername(player.getUsername());
+
                 return true;
             } else if (username.getText().isEmpty() || password.getText().isEmpty()) {
                 errorMsg.setText("Please enter your username and password");
