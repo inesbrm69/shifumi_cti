@@ -3,14 +3,11 @@ package client;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 import application.AuthController;
 import application.JeuController;
-import application.ShiFuMiController;
 import common.Message;
-import server.Connection;
 
 public class Client {
 
@@ -20,7 +17,10 @@ public class Client {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 
-	private AuthController view;
+	private AuthController authView;
+
+	private JeuController jeuView;
+
 
 	public String getAddress() {
 		return address;
@@ -62,12 +62,20 @@ public class Client {
 		this.out = out;
 	}
 
-	public AuthController getView() {
-		return view;
+	public AuthController getAuthView() {
+		return authView;
 	}
 
-	public void setView(AuthController view) {
-		this.view = view;
+	public void setAuthView(AuthController authView) {
+		this.authView = authView;
+	}
+
+	public JeuController getJeuView() {
+		return jeuView;
+	}
+
+	public void setJeuView(JeuController jeuView) {
+		this.jeuView = jeuView;
 	}
 
 	public Client(String address, int port) {
@@ -109,7 +117,7 @@ public class Client {
 	}
 
 	public void messageReceived(Message mess) {
-		/*view.printNewMessage(mess);*/
+		jeuView.printNewMessage(mess);
 	}
 
 	public void sendMessage(Message message) throws IOException {

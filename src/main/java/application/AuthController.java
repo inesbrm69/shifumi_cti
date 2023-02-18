@@ -2,14 +2,11 @@ package application;
 
 import client.Client;
 import common.ClientSingleton;
-import common.Message;
 import common.Player;
 import common.PlayerSingleton;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -163,16 +158,17 @@ public class AuthController {
         boolean canLogIn = checkLogIn();
 
         if(canLogIn){
-            AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
+            FXMLLoader loader = new FXMLLoader(Jeu.class.getResource("PageGame.fxml"));
+            AnchorPane gamePage = loader.load();
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            //stageGame.setUserData(this.player);
             PlayerSingleton.getInstance().setObject(this.player);
             stageGame.setScene(sceneGame);
             String[] properties = getServerProperties();
             Client client = new Client(properties[0], Integer.parseInt(properties[1]));
             this.setClient(client);
-            client.setView(this);
+            client.setAuthView(this);
+            client.setJeuView(loader.getController());
             ClientSingleton.getInstance().setObject(this.client);
             stageGame.show();
         }

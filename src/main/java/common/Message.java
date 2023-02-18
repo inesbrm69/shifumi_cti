@@ -28,7 +28,7 @@ public class Message implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.getSender() + " :" + this.getContent();
+		return this.getSender() + " : " + this.getContent();
 	}
 
 	public String getSender() {

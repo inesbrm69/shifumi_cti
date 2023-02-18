@@ -34,7 +34,7 @@ public class ClientReceive implements Runnable {
 			try {
 				mess = (Message) in.readObject();
 				if (mess != null) {
-					/*this.client.messageReceived(mess);*/
+					this.client.messageReceived(mess);
 				} else {
 					isActive = false;
 				}

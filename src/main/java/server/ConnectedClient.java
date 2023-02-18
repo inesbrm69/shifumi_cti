@@ -1,5 +1,6 @@
 package server;
 
+import application.JeuController;
 import common.Message;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ public class ConnectedClient implements Runnable {
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+
+    private JeuController jeuController = new JeuController();
 
     public int getId() {
         return id;
@@ -53,6 +56,14 @@ public class ConnectedClient implements Runnable {
 
     public void setIn(ObjectInputStream in) {
         this.in = in;
+    }
+
+    public JeuController getJeuController() {
+        return jeuController;
+    }
+
+    public void setJeuController(JeuController jeuController) {
+        this.jeuController = jeuController;
     }
 
     public ConnectedClient(Server server, Socket socket) {
@@ -106,7 +117,6 @@ public class ConnectedClient implements Runnable {
                     if (mess != null) {
                         mess.setSender(String.valueOf(id));
                         server.messageToPlayers(mess, id, false);
-                        System.out.println(mess);
                     } else {
                         server.disconnectedClient(this);
                         isActive = false;
