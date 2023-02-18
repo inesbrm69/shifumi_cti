@@ -20,7 +20,7 @@
       <TextField fx:id="username" layoutX="410.0" layoutY="148.0" prefHeight="39.0" prefWidth="394.0" />
       <Label layoutX="282.0" layoutY="155.0" style="-fx-font-family: Minecraftia Regular;" text="Username" textFill="WHITE">
          <font>
-            <Font name="Arial" size="24.0" />
+            <Font name="Minecraftia Regular" size="24.0" />
          </font>
       </Label>
       <Label layoutX="285.0" layoutY="215.0" text="Password" textFill="WHITE">
