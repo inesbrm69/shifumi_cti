@@ -2,32 +2,59 @@ package application;
 
 import common.Player;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.text.MessageFormat;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class connectionDB {
-
-    private static String url = "jdbc:oracle:thin:@iutdoua-ora.univ-lyon1.fr:1521:cdb1";
-    private static String username = "p1906861";
-    private static String password = "445030";
+    private static String url;
+    private static String username;
+    private static String password;
 
     //public static void main(String[] args) throws Exception {
        // executeDBQuery("SELECT * FROM \"UTILISATEUR\"");
     //}
+    public static String[] getDBProperties(){
 
+        try {
+            Properties prop = new Properties();
+            FileInputStream input = null;
+            input = new FileInputStream("src/main/resources/application/config.properties");
+            prop.load(input);
+            String url = prop.getProperty("url");
+            String username = prop.getProperty("username");
+            String password = prop.getProperty("password");
+
+            String[] properties = new String[3];
+
+            properties[0] = url;
+            properties[1] = username;
+            properties[2] = password;
+
+            return properties;
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static Player getPlayerByUsername(String _username) {
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet result = null;
 
+        String[] properties = getDBProperties();
 
-        //String queryDb = MessageFormat.format("SELECT * FROM \"UTILISATEUR\" WHERE USERNAME = '{0}' ", _username);
         String queryDb = "SELECT * FROM \"UTILISATEUR\" WHERE USERNAME = '"+_username + "'";
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(properties[0], properties[1], properties[2]);
             statement = conn.prepareStatement(queryDb);
             result = statement.executeQuery();
 
@@ -70,23 +97,19 @@ public class connectionDB {
         PreparedStatement statement = null;
         ResultSet result = null;
 
-        //score à supprimer -> when newPlayer, score default 0 in DB
+        String[] properties = getDBProperties();
+
         //password à modifier pour hashage
         String queryDb = "INSERT INTO UTILISATEUR (username, password, score, perso) VALUES ('"+ player.getUsername()+ "', '"+ player.getPassword() +"', 0, "+ player.getPerso() +")";
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(properties[0], properties[1], properties[2]);
             statement = conn.prepareStatement(queryDb);
             result = statement.executeQuery();
 
-            // à tester :
-            // getStatement()
-            // Retrieves the Statement object that produced this ResultSet object.
-
             if(result != null){
                 return true;
-                //Player player = new Player(id, username, password, score, perso);
             }
             else{
                 return false;
@@ -108,11 +131,13 @@ public class connectionDB {
         PreparedStatement statement = null;
         ResultSet result = null;
 
+        String[] properties = getDBProperties();
+
         String queryDb = "UPDATE UTILISATEUR SET perso = " + persoId + " WHERE id = "+ player.getId();
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(properties[0], properties[1], properties[2]);
             statement = conn.prepareStatement(queryDb);
             result = statement.executeQuery();
 
