@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class Player implements Serializable {
 	private int id;
 	private String username;
-	private String email;
+	private String password;
 	private int score;
-	private int highest;
+	private int perso;
 
-	public Player(int id, String username, String email, int score, int highest) {
+	public Player(int id, String username, String password, int score, int perso) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.email = email;
+		this.password = password;
 		this.score = score;
-		this.highest = highest;
+		this.perso = perso;
 	}
 
 	public int getId() {
@@ -34,14 +34,6 @@ public class Player implements Serializable {
 		this.username = username;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public int getScore() {
 		return score;
 	}
@@ -50,14 +42,20 @@ public class Player implements Serializable {
 		this.score = score;
 	}
 
-	public int getHighest() {
-		return highest;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setHighest(int highest) {
-		this.highest = highest;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
+	public int getPerso() {
+		return perso;
+	}
+	public void setPerso(int perso) {
+		this.perso = perso;
+	}
 	public void initPlayer() {
 		//
 	}

@@ -1,6 +1,7 @@
 package application;
 
 import client.Client;
+import client.MainClient;
 import common.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -36,7 +37,7 @@ public class JeuController {
     private ScrollPane scrollPane;
 
     private Server server;
-    private Client client;
+    //private Client client;
 
     private ConnectedClient connectedClient;
 
@@ -72,14 +73,17 @@ public class JeuController {
         this.scrollPane = scrollPane;
     }
 
-    public Client getClient() {
-        return client;
-    }
+    //public Client getClient() {
+        //return client;
+    //}
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+    //public void setClient(Client client) {
+        //this.client = client;
+    //}
 
+    //public JeuController(Client client){
+      //  this.client = client;
+    //}
 
 
     public void printNewMessage(Message message){
@@ -98,6 +102,7 @@ public class JeuController {
         Message message = new Message("Moi",getChampMessage().getText());
         printNewMessage(message);
         champMessage.setText("");
-        client.sendMessage(message);
+        //Client client = MainClient.getClient();
+        //client.sendMessage(message);
     }
 }

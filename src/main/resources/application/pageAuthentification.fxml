@@ -44,7 +44,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="imageOn" layoutX="401.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoOne" style="-fx-background-color: none;">
+      <Button id="imageOne" fx:id="imageOne" layoutX="401.0" layoutY="319.0" mnemonicParsing="false" onAction="#choosePersoOne" style="-fx-background-color: none;">
          <graphic>
             <ImageView fitHeight="177.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                <image>
