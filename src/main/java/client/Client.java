@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import application.AuthController;
 import application.JeuController;
 import application.ShiFuMiController;
 import common.Message;
@@ -19,7 +20,7 @@ public class Client {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 
-	private JeuController view;
+	private AuthController view;
 
 	public String getAddress() {
 		return address;
@@ -61,11 +62,11 @@ public class Client {
 		this.out = out;
 	}
 
-	public JeuController getView() {
+	public AuthController getView() {
 		return view;
 	}
 
-	public void setView(JeuController view) {
+	public void setView(AuthController view) {
 		this.view = view;
 	}
 
@@ -79,16 +80,16 @@ public class Client {
 			this.out = new ObjectOutputStream(socket.getOutputStream());
 			
 			
-			Thread threadClientSend = new Thread(new ClientSend(socket, this.out));;
-			threadClientSend.start();
+			/*Thread threadClientSend = new Thread(new ClientSend(socket, this.out));;
+			threadClientSend.start();*/
 			Thread threadClientReceive = new Thread(new ClientReceive(this, socket));
 			threadClientReceive.start();
 			
-			try {
-				threadClientSend.join();
+			/*try {
+				*//*threadClientSend.join();*//*
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +109,7 @@ public class Client {
 	}
 
 	public void messageReceived(Message mess) {
-		view.printNewMessage(mess);
+		/*view.printNewMessage(mess);*/
 	}
 
 	public void sendMessage(Message message) throws IOException {
