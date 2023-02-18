@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+import application.JeuController;
 import common.Message;
 
 public class ClientSend implements Runnable {
@@ -21,8 +22,9 @@ public class ClientSend implements Runnable {
 	public void run() {
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.print("Votre message >> ");
-			String m = sc.nextLine();
+			//System.out.print("Votre message >> ");
+			//String m = sc.nextLine();
+			String m = "";
 			Message mess = new Message("client", m, 0);
 			try {
 				out.writeObject(mess);
