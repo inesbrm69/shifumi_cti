@@ -13,7 +13,6 @@ import java.io.IOException;
 public class ShiFuMiController {
 
     @FXML
-
     public void nextPage(ActionEvent e) throws IOException {
         AnchorPane authPage = FXMLLoader.load(Jeu.class.getResource("pageAuthentification.fxml"));
         Scene scene = new Scene(authPage);

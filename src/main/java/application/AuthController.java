@@ -166,7 +166,6 @@ public class AuthController {
             AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            //stageGame.setUserData(this.player);
             PlayerSingleton.getInstance().setObject(this.player);
             stageGame.setScene(sceneGame);
             String[] properties = getServerProperties();
@@ -211,7 +210,7 @@ public class AuthController {
                 passwordDb = player.getPassword();
             }
 
-            if (username.getText().toString().equals(player.getUsername()) && password.getText().toString().equals(passwordDb)) {
+            if (username.getText().toString().equals(player.getUsername()) && password.getText().toString().equals(passwordDb) && player.getId() != 0) {
                 var persoChanged = connectionDB.changePerso(player, getChoicePerso());
                 if(!persoChanged){
                     errorMsg.setText("There was an error with your character, try again.");
@@ -247,9 +246,6 @@ public class AuthController {
             username.setText("");
             password.setText("");
             choosePerso(999);
-        }
-        else{
-            errorMsg.setText("There was an error, please try again.");
         }
     }
 
