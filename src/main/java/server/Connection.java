@@ -1,6 +1,10 @@
 package server;
 
+import common.ClientSingleton;
 import common.Message;
+import client.Client;
+import common.Player;
+import common.PlayerSingleton;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -30,7 +34,7 @@ public class Connection implements Runnable{
 				ConnectedClient newClient = new ConnectedClient(server, sockNewClient);
 				newClient.setId(server.getNumClients());
 
-				if(server.getPlayingClients().size() < 2) {
+				if(server.getPlayingClients().size() < 8) {
 					server.addClient(newClient);
 					server.addPlayingClient(newClient);
 				}

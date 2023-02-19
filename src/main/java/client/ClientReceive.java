@@ -34,6 +34,9 @@ public class ClientReceive implements Runnable {
 			try {
 				mess = (Message) in.readObject();
 				if (mess != null) {
+					if(mess.getSenderString() == null){
+						mess.setSenderString(this.client.getPlayerUsername());
+					}
 					this.client.messageReceived(mess);
 				} else {
 					isActive = false;

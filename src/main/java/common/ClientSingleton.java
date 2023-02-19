@@ -2,6 +2,7 @@ package common;
 
 import client.Client;
 
+
 public class ClientSingleton {
     private static ClientSingleton instance;
     private Client clientToSend;

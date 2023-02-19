@@ -7,9 +7,10 @@ import java.net.Socket;
 
 import application.AuthController;
 import application.JeuController;
+import interfaces.IClient;
 import common.Message;
 
-public class Client {
+public class Client implements IClient {
 
 	private String address;
 	private int port;
@@ -20,6 +21,12 @@ public class Client {
 	private AuthController authView;
 
 	private JeuController jeuView;
+
+	private String playerUsername;
+
+	private int playerId;
+
+	private int playerScore;
 
 
 	public String getAddress() {
@@ -66,6 +73,39 @@ public class Client {
 		return authView;
 	}
 
+	//region Implementation interface
+	public String getPlayerUsername() {
+		return playerUsername;
+	}
+
+	@Override
+	public int getPlayerId() {
+		return playerId;
+	}
+
+	@Override
+	public int getPlayerScore() {
+		return playerScore;
+	}
+
+	@Override
+	public void setPlayerScore(int score) {
+		this.playerScore = score;
+	}
+
+	@Override
+	public void setPlayerUsername(String username) {
+		this.playerUsername = username;
+	}
+
+	@Override
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+	//endregion
+
+
+
 	public void setAuthView(AuthController authView) {
 		this.authView = authView;
 	}
@@ -78,26 +118,19 @@ public class Client {
 		this.jeuView = jeuView;
 	}
 
-	public Client(String address, int port) {
+	public Client(String address, int port, String username) {
 		super();
 		this.address = address;
 		this.port = port;
+		this.playerUsername = username;
 		
 		try {
 			this.socket = new Socket(address, port);
 			this.out = new ObjectOutputStream(socket.getOutputStream());
-			
-			
-			/*Thread threadClientSend = new Thread(new ClientSend(socket, this.out));;
-			threadClientSend.start();*/
+
 			Thread threadClientReceive = new Thread(new ClientReceive(this, socket));
 			threadClientReceive.start();
-			
-			/*try {
-				*//*threadClientSend.join();*//*
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -124,6 +157,4 @@ public class Client {
 		this.out.writeObject(message);
 		this.out.flush();
 	}
-	
-	
 }

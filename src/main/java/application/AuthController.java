@@ -21,6 +21,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+
+import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.binary.Hex;
+
 public class AuthController {
     @FXML
     private TextField username;
@@ -165,7 +171,10 @@ public class AuthController {
             PlayerSingleton.getInstance().setObject(this.player);
             stageGame.setScene(sceneGame);
             String[] properties = getServerProperties();
-            Client client = new Client(properties[0], Integer.parseInt(properties[1]));
+            Client client = new Client(properties[0], Integer.parseInt(properties[1]), this.player.getUsername());
+            client.setPlayerId(this.player.getId());
+            client.setPlayerUsername(this.player.getUsername());
+            client.setPlayerScore(this.player.getScore());
             this.setClient(client);
             client.setAuthView(this);
             client.setJeuView(loader.getController());
@@ -206,20 +215,20 @@ public class AuthController {
             if (player != null) {
                 passwordDb = player.getPassword();
             }
-
-            if (username.getText().toString().equals(player.getUsername()) && password.getText().toString().equals(passwordDb)) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] passwordHash = digest.digest(password.getText().getBytes(StandardCharsets.UTF_8));
+            String passwordHashStr = new String(Hex.encodeHex(passwordHash));
+            if (username.getText().toString().equals(player.getUsername()) && passwordHashStr.equals(passwordDb) && player.getId() != 0) {
                 var persoChanged = connectionDB.changePerso(player, getChoicePerso());
                 if(!persoChanged){
                     errorMsg.setText("There was an error with your character, try again.");
                     return false;
                 }
-
                 this.player.setId(player.getId());
                 this.player.setPerso(player.getPerso());
                 this.player.setScore(player.getScore());
                 this.player.setPassword(player.getPassword());
                 this.player.setUsername(player.getUsername());
-
                 return true;
             } else if (username.getText().isEmpty() || password.getText().isEmpty()) {
                 errorMsg.setText("Please enter your username and password");
@@ -244,9 +253,6 @@ public class AuthController {
             password.setText("");
             choosePerso(999);
         }
-        else{
-            errorMsg.setText("There was an error, please try again.");
-        }
     }
 
     private boolean checkSignIn() throws IOException{
@@ -254,7 +260,10 @@ public class AuthController {
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
 
             if (player.getId() == 0) {
-                boolean playerAdded = connectionDB.addNewPlayer(new Player(0, username.getText().toString(), password.getText().toString(), 0, choicePerso ));
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] passwordHash = digest.digest(password.getText().getBytes(StandardCharsets.UTF_8));
+                String passwordHashStr = new String(Hex.encodeHex(passwordHash));
+                boolean playerAdded = connectionDB.addNewPlayer(new Player(0, username.getText().toString(), passwordHashStr, 0, choicePerso ));
                 return playerAdded;
             }
             else if(player.getId() != 0){

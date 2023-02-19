@@ -1,3 +1,4 @@
+/*
 package client;
 
 import application.App;
@@ -15,7 +16,8 @@ import java.net.UnknownHostException;
 import static javafx.application.Application.launch;
 
 public class MainClient{
-	/** * construct a new client * @param args */
+* * construct a new client * @param args
+
 	public static void main(String[] args) throws IOException {
 		if (args.length != 2) {
 			printUsage();
@@ -35,3 +37,4 @@ public class MainClient{
 		System.out.println("\t<port>: server's port");
 	}
 }
+*/

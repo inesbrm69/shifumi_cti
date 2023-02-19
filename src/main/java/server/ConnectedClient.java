@@ -1,14 +1,16 @@
 package server;
 
 import application.JeuController;
+import interfaces.IClient;
 import common.Message;
+import common.Player;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ConnectedClient implements Runnable {
+public class ConnectedClient implements Runnable, IClient {
     private static int idCounter;
     private int id;
     private Server server;
@@ -17,6 +19,43 @@ public class ConnectedClient implements Runnable {
     private ObjectInputStream in;
 
     private JeuController jeuController = new JeuController();
+
+    private int playerScore;
+
+    private int playerId;
+
+    private String playerUsername;
+
+    //region Implementation interface
+    public String getPlayerUsername() {
+        return playerUsername;
+    }
+
+    @Override
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    @Override
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    @Override
+    public void setPlayerScore(int score) {
+        this.playerScore = score;
+    }
+
+    @Override
+    public void setPlayerUsername(String username) {
+        this.playerUsername = username;
+    }
+
+    @Override
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
+    //endregion
 
     public int getId() {
         return id;
@@ -83,6 +122,10 @@ public class ConnectedClient implements Runnable {
 
     public void sendMessage(Message mess) {
         try {
+            /*if(mess.getSenderString() == null){
+                mess.setSenderString(this.getPlayerUsername());
+            }*/
+            int un = 1;
             this.out.writeObject(mess);
             this.out.flush();
         } catch (IOException e) {
@@ -115,8 +158,14 @@ public class ConnectedClient implements Runnable {
                     mess = (Message) in.readObject();
 
                     if (mess != null) {
-                        mess.setSender(String.valueOf(id));
-                        server.messageToPlayers(mess, id, false);
+                        mess.setSender(this);
+                        mess.setSenderString(this.getPlayerUsername());
+                        if(mess.getSenderString() == null){
+                            server.messageToPlayers(mess, id, false);
+                        }else{
+                            server.messageToPlayers(mess, id, true);
+                        }
+
                     } else {
                         server.disconnectedClient(this);
                         isActive = false;

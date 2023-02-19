@@ -1,7 +1,7 @@
 package application;
 
 import client.Client;
-import client.MainClient;
+/*import client.MainClient;*/
 import common.ClientSingleton;
 import common.Message;
 import common.Player;
@@ -107,7 +107,7 @@ public class JeuController{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Label text = new Label("\n"+ message.toString());
+                Label text = new Label("\n"+ message.toString(true));
                 text.setPrefWidth(vbox_messages.getPrefWidth() - 20);
                 text.setAlignment(Pos.CENTER_LEFT);
                 vbox_messages.getChildren().add(text);
