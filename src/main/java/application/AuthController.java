@@ -25,6 +25,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+
+import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.binary.Hex;
+
 
 public class AuthController {
     @FXML
@@ -209,8 +215,10 @@ public class AuthController {
             if (player != null) {
                 passwordDb = player.getPassword();
             }
-
-            if (username.getText().toString().equals(player.getUsername()) && password.getText().toString().equals(passwordDb) && player.getId() != 0) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] passwordHash = digest.digest(password.getText().getBytes(StandardCharsets.UTF_8));
+            String passwordHashStr = new String(Hex.encodeHex(passwordHash));
+            if (username.getText().toString().equals(player.getUsername()) && passwordHashStr.equals(passwordDb) && player.getId() != 0) {
                 var persoChanged = connectionDB.changePerso(player, getChoicePerso());
                 if(!persoChanged){
                     errorMsg.setText("There was an error with your character, try again.");
@@ -254,7 +262,10 @@ public class AuthController {
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
 
             if (player.getId() == 0) {
-                boolean playerAdded = connectionDB.addNewPlayer(new Player(0, username.getText().toString(), password.getText().toString(), 0, choicePerso ));
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] passwordHash = digest.digest(password.getText().getBytes(StandardCharsets.UTF_8));
+                String passwordHashStr = new String(Hex.encodeHex(passwordHash));
+                boolean playerAdded = connectionDB.addNewPlayer(new Player(0, username.getText().toString(), passwordHashStr, 0, choicePerso ));
                 return playerAdded;
             }
             else if(player.getId() != 0){
