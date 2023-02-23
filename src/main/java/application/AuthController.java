@@ -2,6 +2,7 @@ package application;
 
 import client.Client;
 import common.ClientSingleton;
+import common.Message;
 import common.Player;
 import common.PlayerSingleton;
 import javafx.event.ActionEvent;
@@ -19,12 +20,15 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
+
 import org.apache.commons.codec.binary.Hex;
 
 public class AuthController {
@@ -164,11 +168,11 @@ public class AuthController {
         boolean canLogIn = checkLogIn();
 
         if(canLogIn){
+            PlayerSingleton.getInstance().setObject(this.player);
             FXMLLoader loader = new FXMLLoader(Jeu.class.getResource("PageGame.fxml"));
             AnchorPane gamePage = loader.load();
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            PlayerSingleton.getInstance().setObject(this.player);
             stageGame.setScene(sceneGame);
             String[] properties = getServerProperties();
             Client client = new Client(properties[0], Integer.parseInt(properties[1]), this.player.getUsername());
@@ -179,6 +183,7 @@ public class AuthController {
             client.setAuthView(this);
             client.setJeuView(loader.getController());
             ClientSingleton.getInstance().setObject(this.client);
+            //this.client.sendMessage(new Message(player));
             stageGame.show();
         }
     }
@@ -251,7 +256,6 @@ public class AuthController {
             errorMsg.setText("Your account was created. Please log in.");
             username.setText("");
             password.setText("");
-            choosePerso(999);
         }
     }
 

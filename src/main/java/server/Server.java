@@ -54,7 +54,6 @@ public class Server {
 	}
 
 	public int getPort() {
-		// TODO Auto-generated method stub
 		return this.port;
 	}
 
@@ -63,35 +62,28 @@ public class Server {
 	}
 
 	public void addClient(ConnectedClient newClient) {
-		newClient.getPlayerUsername();
 		this.clients.add(newClient);
-		broadcastMessage(new Message(newClient.getPlayerUsername(), " is connected"), newClient.getId());
+		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is connected"), newClient.getId());
 	}
 
 	public void addPlayingClient(ConnectedClient newClient) {
 		this.playingClients.add(newClient);
-		broadcastMessage(new Message(newClient.getPlayerUsername(), " is playing"), newClient.getId());
+		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is playing"), newClient.getId());
 	}
 
 	public void addWaitingClients(ConnectedClient newClient) {
 		this.waitingClients.add(newClient);
-		broadcastMessage(new Message(newClient.getPlayerUsername(), " is waiting to join"), newClient.getId());
+		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is waiting to join"), newClient.getId());
 	}
 
 	public void broadcastMessage(Message mess, int id) {
 		for (ConnectedClient client : clients) {
 			if (client.getId() != id) {
-				if(mess.getSenderString() == null){
-					mess.setSenderString(client.getPlayerUsername());
-				}
+				//if(mess.getSenderString() == null){
+					//mess.setSenderString(mess.getSender().getPlayerUsername());
+				//}
 				client.sendMessage(mess);
 			}
-//			int i;
-//			for(i=0; i < playingClients.size(); i++) {
-//				if(playingClients.get(id) != null ) {
-//
-//				}
-//			}
 		}
 
 	}

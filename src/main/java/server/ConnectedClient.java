@@ -8,18 +8,17 @@ import common.Player;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 
-public class ConnectedClient implements Runnable, IClient {
+public class ConnectedClient implements Runnable, IClient, Serializable {
     private static int idCounter;
     private int id;
-    private Server server;
-    private Socket socket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
-
-    private JeuController jeuController = new JeuController();
-
+    private transient Server server;
+    private transient Socket socket;
+    private transient ObjectOutputStream out;
+    private transient ObjectInputStream in;
+    private static final long serialVersionUID = 333333333333333L;
     private int playerScore;
 
     private int playerId;
@@ -97,14 +96,6 @@ public class ConnectedClient implements Runnable, IClient {
         this.in = in;
     }
 
-    public JeuController getJeuController() {
-        return jeuController;
-    }
-
-    public void setJeuController(JeuController jeuController) {
-        this.jeuController = jeuController;
-    }
-
     public ConnectedClient(Server server, Socket socket) {
         super();
         this.id = idCounter++;
@@ -125,7 +116,6 @@ public class ConnectedClient implements Runnable, IClient {
             /*if(mess.getSenderString() == null){
                 mess.setSenderString(this.getPlayerUsername());
             }*/
-            int un = 1;
             this.out.writeObject(mess);
             this.out.flush();
         } catch (IOException e) {
@@ -158,8 +148,8 @@ public class ConnectedClient implements Runnable, IClient {
                     mess = (Message) in.readObject();
 
                     if (mess != null) {
-                        mess.setSender(this);
-                        mess.setSenderString(this.getPlayerUsername());
+                        //mess.setSender(this);
+                        //mess.setSenderString(this.getPlayerUsername());
                         if(mess.getSenderString() == null){
                             server.messageToPlayers(mess, id, false);
                         }else{

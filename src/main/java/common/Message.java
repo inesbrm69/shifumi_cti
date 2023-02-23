@@ -15,6 +15,13 @@ public class Message implements Serializable {
 	// shifumi = 2 : ciseau
 	private int shifumi;
 
+	private Player player;
+
+	public Message(Player player){
+		super();
+		this.player = player;
+	}
+
 	public Message(String content) {
 		super();
 		this.content = content;
@@ -84,5 +91,13 @@ public class Message implements Serializable {
 
 	public void setSenderString(String senderString) {
 		this.senderString = senderString;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }
