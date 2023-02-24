@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -155,10 +156,54 @@ public class JeuController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Label text = new Label("\n"+ message.toString(true));
-                text.setPrefWidth(vbox_messages.getPrefWidth() - 20);
+
+                if(message.getSenderString().equals(player.getUsername().toString())){
+                    String messageToSend = message.getContent();
+                    Text username = new Text("You");
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+
+                    hBox.setPadding(new Insets(5,5,5,10));
+                    Text text = new Text(messageToSend);
+                    Font.loadFont(getClass().getResourceAsStream("../../resources/application/font/Minecraftia-Regular.ttf"), 12);
+                    Font.getFamilies().forEach(System.out::println);
+                    text.setFont(Font.font("Minecraftia", 24));
+                    hBox.setStyle("-fx-content-display: flex;");
+                    text.setStyle("-fx-font-weight: bold;");
+                    TextFlow textFlow = new TextFlow(text);
+                    textFlow.setStyle ("-fx-background-color: rgb(233,233,235);" +
+                            " -fx-background-raduis: 5px");
+
+                    textFlow.setPadding(new Insets(5,10,5,10));
+                    text.setFill(Color.color(0,0,0));
+                    username.setFill(Color.color(0,0,0));
+
+                    hBox.getChildren().add(username);
+                    hBox.getChildren().add(textFlow);
+                    vbox_messages.getChildren().add(hBox);
+                }else{
+                    String messageToSend = message.getContent();
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+
+                    hBox.setPadding(new Insets(5,5,5,10));
+                    Text text = new Text(messageToSend);
+                    TextFlow textFlow = new TextFlow(text);
+                    textFlow.setStyle("-fx-color: rgb(239,242,255);" +
+                            "-fx-background-color: rgb(255,0,0);" +
+                            " -fx-background-raduis: 5px");
+
+                    textFlow.setPadding(new Insets(5,10,5,10));
+                    text.setFill(Color.color(0.934,0.945,0.996));
+
+                    hBox.getChildren().add(textFlow);
+                    vbox_messages.getChildren().add(hBox);
+                }
+                /*Label text = new Label("\n"+ message.toString(true));*/
+                /*text.setPrefWidth(vbox_messages.getPrefWidth() - 20);
                 text.setAlignment(Pos.CENTER_LEFT);
-                vbox_messages.getChildren().add(text);
+
+                vbox_messages.getChildren().add(text);*/
             }
         });
     }
@@ -168,6 +213,8 @@ public class JeuController implements Initializable{
         this.player = PlayerSingleton.getInstance().getObject();
         if(!getChampMessage().getText().isEmpty()){
             Message message = new Message(player.getUsername(), getChampMessage().getText());
+
+
             champMessage.setText("");
             this.client = ClientSingleton.getInstance().getObject();
             this.client.sendMessage(message);
@@ -187,16 +234,16 @@ public class JeuController implements Initializable{
 
                 switch (playerSingleton.getPerso()){
                     case 0:
-                        imagePerso.setImage(new Image("C:\\Users\\cesso\\IdeaProjects\\shifumi_cti\\src\\main\\resources\\application\\images\\0.png"));
+                        imagePerso.setImage(new Image("0.png"));
                         break;
                     case 1:
-                        imagePerso.setImage(new Image("C:\\Users\\cesso\\IdeaProjects\\shifumi_cti\\src\\main\\resources\\application\\images\\1.png"));
+                        imagePerso.setImage(new Image("1.png"));
                         break;
                     case 2:
-                        imagePerso.setImage(new Image("C:\\Users\\cesso\\IdeaProjects\\shifumi_cti\\src\\main\\resources\\application\\images\\2.png"));
+                        imagePerso.setImage(new Image("2.png"));
                         break;
                     case 3:
-                        imagePerso.setImage(new Image("C:\\Users\\cesso\\IdeaProjects\\shifumi_cti\\src\\main\\resources\\application\\images\\3.png"));
+                        imagePerso.setImage(new Image("3.png"));
                         break;
                     default:
                         break;
