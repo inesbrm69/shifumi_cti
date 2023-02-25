@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -143,6 +144,7 @@ public class JeuController implements Initializable{
     }
 
 
+
     /** Méthode qui fait le style de message (cad que quand c'est le user qui envoie le message, il est en blanc et quand c'est les autres c'est en rouge
      ** @param message : contient les informations du player du genre le contenu du message, son username...
      */
@@ -253,6 +255,19 @@ public class JeuController implements Initializable{
 
     }
 
+    @FXML
+    public void enterMessage(){
+        champMessage.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onSendData();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -282,4 +297,5 @@ public class JeuController implements Initializable{
                 usernameLabel.setText(playerSingleton.getUsername());
                 scoreLabel.setText(playerSingleton.getScore() + " PTS");
         }
+
 }

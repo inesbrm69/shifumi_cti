@@ -28,7 +28,7 @@
             <Image url="@images/centrepkm_WB.png" />
          </image>
       </ImageView>
-      <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
+      <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" onAction="#enterMessage" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
          <font>
             <Font name="System Italic" size="22.0" />
          </font>
