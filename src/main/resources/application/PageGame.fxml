@@ -45,9 +45,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <ScrollPane fx:id="scrollPane" layoutX="891.0" layoutY="76.0" prefHeight="468.0" prefWidth="282.0">
+      <ScrollPane fx:id="scrollPane" layoutX="874.0" layoutY="77.0" prefHeight="468.0" prefWidth="310.0">
          <content>
-            <VBox fx:id="vbox_messages" prefHeight="470.0" prefWidth="281.0" />
+            <VBox fx:id="vbox_messages" prefHeight="466.0" prefWidth="306.0" />
          </content>
       </ScrollPane>
       <ImageView fx:id="imagePerso" fitHeight="155.0" fitWidth="105.0" layoutX="56.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />

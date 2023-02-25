@@ -151,59 +151,93 @@ public class JeuController implements Initializable{
         this.player.setId(player.getId());
     }
 
-
     public void printNewMessage(Message message){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
 
                 if(message.getSenderString().equals(player.getUsername().toString())){
-                    String messageToSend = message.getContent();
+                    //Champ "You"
                     Text username = new Text("You");
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    //La box qui contiendra le username
+                    HBox hBoxUsername = new HBox();
+                    hBoxUsername.setAlignment(Pos.CENTER_RIGHT);
+                    hBoxUsername.setPadding(new Insets(0,0,0,0));
 
-                    hBox.setPadding(new Insets(5,5,5,10));
-                    Text text = new Text(messageToSend);
-                    Font.loadFont(getClass().getResourceAsStream("../../resources/application/font/Minecraftia-Regular.ttf"), 12);
-                    Font.getFamilies().forEach(System.out::println);
-                    text.setFont(Font.font("Minecraftia", 24));
-                    hBox.setStyle("-fx-content-display: flex;");
-                    text.setStyle("-fx-font-weight: bold;");
-                    TextFlow textFlow = new TextFlow(text);
-                    textFlow.setStyle ("-fx-background-color: rgb(233,233,235);" +
-                            " -fx-background-raduis: 5px");
+                    TextFlow textFlowUsername = new TextFlow(username);
+                    textFlowUsername.setStyle ("-fx-background-color: transparent;");
+                    textFlowUsername.setPadding(new Insets(0,5,5,0));
 
-                    textFlow.setPadding(new Insets(5,10,5,10));
-                    text.setFill(Color.color(0,0,0));
                     username.setFill(Color.color(0,0,0));
 
-                    hBox.getChildren().add(username);
-                    hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
-                }else{
+                    //Message
                     String messageToSend = message.getContent();
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    //La box qui contiendra le message
+                    HBox hBoxMessage = new HBox();
+                    hBoxMessage.setAlignment(Pos.CENTER_RIGHT);
+                    hBoxMessage.setPadding(new Insets(0,0,0,0));
 
-                    hBox.setPadding(new Insets(5,5,5,10));
                     Text text = new Text(messageToSend);
-                    TextFlow textFlow = new TextFlow(text);
-                    textFlow.setStyle("-fx-color: rgb(239,242,255);" +
-                            "-fx-background-color: rgb(255,0,0);" +
-                            " -fx-background-raduis: 5px");
 
-                    textFlow.setPadding(new Insets(5,10,5,10));
+                    text.setStyle("-fx-font-weight: bold;");
+                    TextFlow textFlowMessage = new TextFlow(text);
+                    textFlowMessage.setStyle ("-fx-background-color: rgb(233,233,235);" +
+                            "-fx-border-radius: 10 10 10 10;" +
+                            "-fx-background-radius: 10 10 10 10;" +
+                            "-fx-font-size: 16px;");
+
+                    textFlowMessage.setPadding(new Insets(5,10,5,10));
+                    text.setFill(Color.color(0,0,0));
+
+                    //Ajout du champ username dans la box
+                    hBoxUsername.getChildren().add(textFlowUsername);
+                    //Ajout du message dans la box
+                    hBoxMessage.getChildren().add(textFlowMessage);
+                    //Ajout des champs username et message dans la ligne de la VBOX
+                    vbox_messages.getChildren().add(hBoxUsername);
+                    vbox_messages.getChildren().add(hBoxMessage);
+                }else{
+                    //Champ "You"
+                    Text username = new Text(player.getUsername());
+                    //La box qui contiendra le username
+                    HBox hBoxUsername = new HBox();
+                    hBoxUsername.setAlignment(Pos.CENTER_LEFT);
+                    hBoxUsername.setPadding(new Insets(0,0,0,0));
+
+                    TextFlow textFlowUsername = new TextFlow(username);
+                    textFlowUsername.setStyle ("-fx-background-color: transparent;");
+                    textFlowUsername.setPadding(new Insets(0,5,5,0));
+
+                    username.setFill(Color.color(0,0,0));
+
+                    //Message
+                    String messageToSend = message.getContent();
+                    //La box qui contiendra le message
+                    HBox hBoxMessage = new HBox();
+                    hBoxMessage.setAlignment(Pos.CENTER_LEFT);
+                    hBoxMessage.setPadding(new Insets(0,0,0,0));
+
+                    Text text = new Text(messageToSend);
+
+                    text.setStyle("-fx-font-weight: bold;");
+                    TextFlow textFlowMessage = new TextFlow(text);
+                    textFlowMessage.setStyle ("-fx-color: rgb(239,242,255);" +
+                            "-fx-background-color: rgb(255,0,0);" +
+                            "-fx-border-radius: 10 10 10 10;" +
+                            "-fx-background-radius: 10 10 10 10;" +
+                            "-fx-font-size: 16px;");
+
+                    textFlowMessage.setPadding(new Insets(5,8,5,8));
                     text.setFill(Color.color(0.934,0.945,0.996));
 
-                    hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
+                    //Ajout du champ username dans la box
+                    hBoxUsername.getChildren().add(textFlowUsername);
+                    //Ajout du message dans la box
+                    hBoxMessage.getChildren().add(textFlowMessage);
+                    //Ajout des champs username et message dans la ligne de la VBOX
+                    vbox_messages.getChildren().add(hBoxUsername);
+                    vbox_messages.getChildren().add(hBoxMessage);
                 }
-                /*Label text = new Label("\n"+ message.toString(true));*/
-                /*text.setPrefWidth(vbox_messages.getPrefWidth() - 20);
-                text.setAlignment(Pos.CENTER_LEFT);
-
-                vbox_messages.getChildren().add(text);*/
             }
         });
     }
