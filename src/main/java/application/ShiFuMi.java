@@ -16,11 +16,13 @@ import server.ConnectedClient;
 import server.Server;
 
 import java.io.IOException;
+import java.util.List;
+import java.net.URL;
+import java.util.Optional;
 
 public class ShiFuMi extends Application{
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setResizable(false);
         AnchorPane pageStart = FXMLLoader.load(ShiFuMi.class.getResource("pageStart.fxml"));
         Scene page_Start = new Scene(pageStart);
         stage.setScene(page_Start);

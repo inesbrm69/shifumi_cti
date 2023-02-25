@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="1199.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JeuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="1199.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.JeuController">
    <children>
       <ImageView fitHeight="51.0" fitWidth="276.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,12 +28,12 @@
             <Image url="@images/centrepkm_WB.png" />
          </image>
       </ImageView>
-      <TextField fx:id="champMessage" layoutX="396.0" layoutY="587.0" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
+      <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
          <font>
             <Font name="System Italic" size="22.0" />
          </font>
       </TextField>
-      <Button fx:id="btnSend" layoutX="1047.0" layoutY="582.0" mnemonicParsing="false" onAction="#onSendData" prefHeight="51.0" prefWidth="40.0" style="-fx-background-color: none; -fx-background-radius: 100;">
+      <Button fx:id="btnSend" layoutX="1087.0" layoutY="582.0" mnemonicParsing="false" onAction="#onSendData" prefHeight="51.0" prefWidth="40.0" style="-fx-background-color: none; -fx-background-radius: 100;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -45,13 +45,19 @@
             </ImageView>
          </graphic>
       </Button>
-      <ScrollPane fx:id="scrollPane" layoutX="891.0" layoutY="76.0" prefHeight="468.0" prefWidth="282.0">
+      <ScrollPane fx:id="scrollPane" layoutX="874.0" layoutY="77.0" prefHeight="468.0" prefWidth="310.0">
          <content>
-            <VBox fx:id="vbox_messages" prefHeight="470.0" prefWidth="281.0" />
+            <VBox fx:id="vbox_messages" prefHeight="466.0" prefWidth="306.0" />
          </content>
       </ScrollPane>
-      <ImageView fitHeight="155.0" fitWidth="105.0" layoutX="56.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />
-      <Label id="labelUsername" layoutX="172.0" layoutY="564.0" />
-      <Label id="labelPoints" layoutX="173.0" layoutY="586.0" prefHeight="18.0" prefWidth="0.0" />
+      <ImageView fx:id="imagePerso" fitHeight="155.0" fitWidth="105.0" layoutX="56.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" />
+      <Label id="labelUsername" fx:id="usernameLabel" layoutX="179.0" layoutY="551.0" prefHeight="45.0" prefWidth="235.0" textFill="WHITE">
+         <font>
+            <Font size="27.0" />
+         </font></Label>
+      <Label id="labelPoints" fx:id="scoreLabel" layoutX="179.0" layoutY="593.0" prefHeight="30.0" prefWidth="189.0" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
    </children>
 </AnchorPane>

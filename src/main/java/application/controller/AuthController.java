@@ -1,13 +1,15 @@
-package application;
+package application.controller;
 
+import application.Jeu;
+import application.connectionDB;
 import client.Client;
+import common.ClientSingleton;
 import common.Message;
 import common.Player;
-import javafx.application.Platform;
+import common.PlayerSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,15 +17,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
+
 import org.apache.commons.codec.binary.Hex;
 
 public class AuthController {
@@ -57,6 +64,8 @@ public class AuthController {
     private int choicePerso = 0;
 
     private Client client;
+
+    private Player player = new Player(0, null, null, 0, 0);
 
     public TextField getUsername() {
         return username;
@@ -146,22 +155,75 @@ public class AuthController {
         this.client = client;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
+    /** Méthode qui ouvre "PageGame" en renvoyant au serveur les informations du player et ajout un client
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void userLogIn(ActionEvent e) throws IOException {
         boolean canLogIn = checkLogIn();
 
         if(canLogIn){
-            AnchorPane gamePage = FXMLLoader.load(Jeu.class.getResource("PageGame.fxml"));
+            this.player.setPerso(choicePerso);
+            PlayerSingleton.getInstance().setObject(this.player);
+            FXMLLoader loader = new FXMLLoader(Jeu.class.getResource("PageGame.fxml"));
+            AnchorPane gamePage = loader.load();
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stageGame.setScene(sceneGame);
-            Client client = new Client("127.0.0.1",50000);
+            String[] properties = getServerProperties();
+            Client client = new Client(properties[0], Integer.parseInt(properties[1]), this.player.getUsername());
+            client.setPlayerId(this.player.getId());
+            client.setPlayerUsername(this.player.getUsername());
+            client.setPlayerScore(this.player.getScore());
             this.setClient(client);
-            client.setView(this);
+            client.setAuthView(this);
+            client.setJeuView(loader.getController());
+            ClientSingleton.getInstance().setObject(this.client);
+            //this.client.sendMessage(new Message(player));
             stageGame.show();
         }
     }
 
+    /** Méthode qui utilise le fichier "config.properties" : les paramètres de connexion au serveur
+     * @return properties : les paramètres pour la connexion au serveur
+     */
+    public String[] getServerProperties(){
+        try {
+            Properties prop = new Properties();
+            FileInputStream input = null;
+            input = new FileInputStream("src/main/resources/application/config.properties");
+            prop.load(input);
+            String address = prop.getProperty("address");
+            String port = prop.getProperty("port");
+
+            String[] properties = new String[2];
+
+            properties[0] = address;
+            properties[1] = port;
+
+            return properties;
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /** Méthode qui vérifie avec la base de données que le joueur est bien créé et récupère les informations dans la base de donnée du user
+     * @return true si le user existe et que son identifiant et mot de passe correspondent à la base de donnée
+     * @throws IOException
+     */
     private boolean checkLogIn() throws IOException {
         try {
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
@@ -174,18 +236,23 @@ public class AuthController {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] passwordHash = digest.digest(password.getText().getBytes(StandardCharsets.UTF_8));
             String passwordHashStr = new String(Hex.encodeHex(passwordHash));
-            if (username.getText().toString().equals(player.getUsername()) && passwordHashStr.equals(passwordDb)) {
+            if (username.getText().toString().equals(player.getUsername()) && passwordHashStr.equals(passwordDb) && player.getId() != 0) {
                 var persoChanged = connectionDB.changePerso(player, getChoicePerso());
                 if(!persoChanged){
                     errorMsg.setText("There was an error with your character, try again.");
                     return false;
                 }
+                this.player.setId(player.getId());
+                this.player.setPerso(player.getPerso());
+                this.player.setScore(player.getScore());
+                this.player.setPassword(player.getPassword());
+                this.player.setUsername(player.getUsername());
                 return true;
             } else if (username.getText().isEmpty() || password.getText().isEmpty()) {
                 errorMsg.setText("Please enter your username and password");
                 return false;
             } else {
-                errorMsg.setText(passwordHash + " "+ passwordDb+ "Some of your info isn't correct. Please try again.");
+                errorMsg.setText("Some of your info isn't correct. Please try again.");
                 return false;
             }
         }
@@ -195,6 +262,10 @@ public class AuthController {
         return false;
     }
 
+    /** Méthode qui écrit un message qui confirme la création de l'utilisateur et initialise les champs user et password a 'null'
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void userSignIn(ActionEvent e) throws IOException {
         boolean signedIn = checkSignIn();
@@ -202,13 +273,13 @@ public class AuthController {
             errorMsg.setText("Your account was created. Please log in.");
             username.setText("");
             password.setText("");
-            choosePerso(999);
-        }
-        else{
-            errorMsg.setText("There was an error, please try again.");
         }
     }
 
+    /** Méthode qui vérifie avec le username si le user existe déjà et si ce n'est pas le cas il en crée un
+     * @return boolean true si le username n'existe pas
+     * @throws IOException
+     */
     private boolean checkSignIn() throws IOException{
         try{
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
@@ -253,6 +324,9 @@ public class AuthController {
         choosePerso(3);
     }
 
+    /** Méthode qui sélectionne le perso qu'on choisi
+     * @param choice : le choix du perso
+     */
     public void choosePerso(int choice){
         //ajouter choosePerso sur les boutons dans le fichier fxml en format choosePerso(0) choosePerso(1)...
         switch (choice){

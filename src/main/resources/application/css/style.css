@@ -1,8 +1,8 @@
 @font-face {
-    font-family: 'Minecraftia-Regular';
+    font-family: 'Minecraftia Regular';
     src: url('../font/Minecraftia-Regular.ttf');
 }
 
-#username .text{
-    -fx-font-family: Minecraftia-Regular;
+#username{
+    -fx-font-family: Minecraftia Regular;
 }

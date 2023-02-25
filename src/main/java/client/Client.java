@@ -3,16 +3,14 @@ package client;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-import application.AuthController;
-import application.JeuController;
-import application.ShiFuMiController;
+import application.controller.AuthController;
+import application.controller.JeuController;
+import interfaces.IClient;
 import common.Message;
-import server.Connection;
 
-public class Client {
+public class Client implements IClient {
 
 	private String address;
 	private int port;
@@ -20,7 +18,16 @@ public class Client {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 
-	private AuthController view;
+	private AuthController authView;
+
+	private JeuController jeuView;
+
+	private String playerUsername;
+
+	private int playerId;
+
+	private int playerScore;
+
 
 	public String getAddress() {
 		return address;
@@ -62,34 +69,68 @@ public class Client {
 		this.out = out;
 	}
 
-	public AuthController getView() {
-		return view;
+	public AuthController getAuthView() {
+		return authView;
 	}
 
-	public void setView(AuthController view) {
-		this.view = view;
+	//region Implementation interface
+	public String getPlayerUsername() {
+		return playerUsername;
 	}
 
-	public Client(String address, int port) {
+	@Override
+	public int getPlayerId() {
+		return playerId;
+	}
+
+	@Override
+	public int getPlayerScore() {
+		return playerScore;
+	}
+
+	@Override
+	public void setPlayerScore(int score) {
+		this.playerScore = score;
+	}
+
+	@Override
+	public void setPlayerUsername(String username) {
+		this.playerUsername = username;
+	}
+
+	@Override
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+	//endregion
+
+
+
+	public void setAuthView(AuthController authView) {
+		this.authView = authView;
+	}
+
+	public JeuController getJeuView() {
+		return jeuView;
+	}
+
+	public void setJeuView(JeuController jeuView) {
+		this.jeuView = jeuView;
+	}
+
+	public Client(String address, int port, String username) {
 		super();
 		this.address = address;
 		this.port = port;
+		this.playerUsername = username;
 		
 		try {
 			this.socket = new Socket(address, port);
 			this.out = new ObjectOutputStream(socket.getOutputStream());
-			
-			
-			/*Thread threadClientSend = new Thread(new ClientSend(socket, this.out));;
-			threadClientSend.start();*/
+
 			Thread threadClientReceive = new Thread(new ClientReceive(this, socket));
 			threadClientReceive.start();
-			
-			/*try {
-				*//*threadClientSend.join();*//*
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -109,13 +150,11 @@ public class Client {
 	}
 
 	public void messageReceived(Message mess) {
-		/*view.printNewMessage(mess);*/
+		jeuView.printNewMessage(mess);
 	}
 
 	public void sendMessage(Message message) throws IOException {
 		this.out.writeObject(message);
 		this.out.flush();
 	}
-	
-	
 }

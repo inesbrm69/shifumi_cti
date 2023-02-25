@@ -1,6 +1,8 @@
 package server;
 
 import common.Message;
+import common.Player;
+import common.PlayerSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +54,6 @@ public class Server {
 	}
 
 	public int getPort() {
-		// TODO Auto-generated method stub
 		return this.port;
 	}
 
@@ -62,30 +63,27 @@ public class Server {
 
 	public void addClient(ConnectedClient newClient) {
 		this.clients.add(newClient);
-		broadcastMessage(new Message(Integer.toString(newClient.getId()), " connecté"), newClient.getId());
+		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is connected"), newClient.getId());
 	}
 
 	public void addPlayingClient(ConnectedClient newClient) {
 		this.playingClients.add(newClient);
-		broadcastMessage(new Message(Integer.toString(newClient.getId()), " entrain de jouer"), newClient.getId());
+		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is playing"), newClient.getId());
 	}
 
 	public void addWaitingClients(ConnectedClient newClient) {
 		this.waitingClients.add(newClient);
-		broadcastMessage(new Message(Integer.toString(newClient.getId()), " entrain d'attendre"), newClient.getId());
+		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is waiting to join"), newClient.getId());
 	}
 
 	public void broadcastMessage(Message mess, int id) {
 		for (ConnectedClient client : clients) {
 			if (client.getId() != id) {
+				//if(mess.getSenderString() == null){
+					//mess.setSenderString(mess.getSender().getPlayerUsername());
+				//}
 				client.sendMessage(mess);
 			}
-//			int i;
-//			for(i=0; i < playingClients.size(); i++) {
-//				if(playingClients.get(id) != null ) {
-//
-//				}
-//			}
 		}
 
 	}
@@ -94,6 +92,9 @@ public class Server {
 		for (ConnectedClient client : playingClients) {
 			if(!sendToAll) {
 				if (client.getId() != id) {
+					if(mess.getSenderString() == null){
+						mess.setSenderString(client.getPlayerUsername());
+					}
 					client.sendMessage(mess);
 				}
 			}
@@ -105,13 +106,16 @@ public class Server {
 
 	public void sendMessageToId(Message mess, int idUser) {
 		ConnectedClient client = clients.get(idUser);
+		if(mess.getSenderString() == null){
+			mess.setSenderString(client.getPlayerUsername());
+		}
 		client.sendMessage(mess);
 	}
 
 	public void disconnectedClient(ConnectedClient connectedClient) {
 		connectedClient.closeClient();
 		clients.remove(connectedClient);
-		broadcastMessage(new Message(Integer.toString(connectedClient.getId()), " déconnecté"), connectedClient.getId());
+		broadcastMessage(new Message(connectedClient.getPlayerUsername(), " déconnecté"), connectedClient.getId());
 //		addClient(this.waitingClients.get(0));
 //		this.waitingClients.remove(0);
 	}
