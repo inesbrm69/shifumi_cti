@@ -8,6 +8,8 @@ public class Player implements Serializable {
 	private String password;
 	private int score;
 	private int perso;
+	private int x;
+	private int y;
 
 	public Player(int id, String username, String password, int score, int perso) {
 		super();
@@ -16,6 +18,8 @@ public class Player implements Serializable {
 		this.password = password;
 		this.score = score;
 		this.perso = perso;
+		this.x = 9;
+		this.y = 8;
 	}
 
 	public int getId() {
@@ -56,6 +60,32 @@ public class Player implements Serializable {
 	public void setPerso(int perso) {
 		this.perso = perso;
 	}
+
+	public int getX() {
+		return x;
+	}
+
+
+	public int getY() {
+		return y;
+	}
+
+	public void moveUp() {
+		y--;
+	}
+
+	public void moveDown() {
+		y++;
+	}
+
+	public void moveLeft() {
+		x--;
+	}
+
+	public void moveRight() {
+		x++;
+	}
+
 	public void initPlayer() {
 		//
 	}

@@ -1,6 +1,8 @@
 package server;
 
 import application.JeuController;
+import client.Client;
+import common.ClientSingleton;
 import interfaces.IClient;
 import common.Message;
 import common.Player;
