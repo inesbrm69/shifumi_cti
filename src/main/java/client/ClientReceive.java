@@ -12,11 +12,13 @@ public class ClientReceive implements Runnable {
 	private Socket socket;
 	private ObjectInputStream in;
 
+	//region Controller
 	public ClientReceive(Client client, Socket socket) {
 		super();
 		this.client = client;
 		this.socket = socket;
 	}
+	//endregion
 
 	@Override
 	public void run() {

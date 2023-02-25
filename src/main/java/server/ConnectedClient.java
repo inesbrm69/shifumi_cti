@@ -111,9 +111,6 @@ public class ConnectedClient implements Runnable, IClient, Serializable {
 
     public void sendMessage(Message mess) {
         try {
-            /*if(mess.getSenderString() == null){
-                mess.setSenderString(this.getPlayerUsername());
-            }*/
             this.out.writeObject(mess);
             this.out.flush();
         } catch (IOException e) {

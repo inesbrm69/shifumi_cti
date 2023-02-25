@@ -142,15 +142,10 @@ public class JeuController implements Initializable{
         this.anchorPane = anchorPane;
     }
 
-    public void setUser(ActionEvent e){
-        //mettre dans le initialize parce que pas besoin Action event du coup
-        Node node = (Node) e.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        Player player = (Player) stage.getUserData();
-        this.player.setUsername(player.getUsername());
-        this.player.setId(player.getId());
-    }
 
+    /** Méthode qui fait le style de message (cad que quand c'est le user qui envoie le message, il est en blanc et quand c'est les autres c'est en rouge
+     ** @param message : contient les informations du player du genre le contenu du message, son username...
+     */
     public void printNewMessage(Message message){
         Platform.runLater(new Runnable() {
             @Override
@@ -197,8 +192,8 @@ public class JeuController implements Initializable{
                     vbox_messages.getChildren().add(hBoxUsername);
                     vbox_messages.getChildren().add(hBoxMessage);
                 }else{
-                    //Champ "You"
-                    Text username = new Text(player.getUsername());
+                    //Champ des autres utilisateurs
+                    Text username = new Text(message.getSenderString());
                     //La box qui contiendra le username
                     HBox hBoxUsername = new HBox();
                     hBoxUsername.setAlignment(Pos.CENTER_LEFT);
@@ -242,12 +237,14 @@ public class JeuController implements Initializable{
         });
     }
 
+    /**Méthode qui envoie le message
+     * @throws IOException
+     */
     @FXML
     public void onSendData() throws IOException {
         this.player = PlayerSingleton.getInstance().getObject();
         if(!getChampMessage().getText().isEmpty()){
             Message message = new Message(player.getUsername(), getChampMessage().getText());
-
 
             champMessage.setText("");
             this.client = ClientSingleton.getInstance().getObject();

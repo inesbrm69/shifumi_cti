@@ -13,6 +13,10 @@ import java.io.IOException;
 
 public class ShiFuMiController {
 
+    /** Méthode qui renvoie à la page d'authentification
+     * @param e
+     * @throws IOException
+     */
     @FXML
 
     public void nextPage(ActionEvent e) throws IOException {
