@@ -180,6 +180,7 @@ public class AuthController {
             Scene sceneGame = new Scene(gamePage);
             Stage stageGame = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stageGame.setScene(sceneGame);
+            stageGame.setResizable(false);
             String[] properties = getServerProperties();
             Client client = new Client(properties[0], Integer.parseInt(properties[1]), this.player.getUsername());
             client.setPlayerId(this.player.getId());

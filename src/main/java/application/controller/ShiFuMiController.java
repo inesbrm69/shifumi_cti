@@ -24,6 +24,7 @@ public class ShiFuMiController {
         Scene scene = new Scene(authPage);
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }

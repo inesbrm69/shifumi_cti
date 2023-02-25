@@ -31,6 +31,7 @@ public class ShiFuMi extends Application{
         Scene page_Start = new Scene(pageStart);
         stage.setScene(page_Start);
         stage.setTitle("ShiFuMi.CTI");
+        stage.setResizable(false); // Rend la fenêtre non redimensionnable
         stage.show();
     }
 }
