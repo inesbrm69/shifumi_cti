@@ -5,8 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import application.AuthController;
-import application.JeuController;
+import application.controller.AuthController;
+import application.controller.JeuController;
 import interfaces.IClient;
 import common.Message;
 

@@ -11,4 +11,6 @@ module com.example.shifumi_cti {
 */
     opens application to javafx.fxml;
     exports application;
+    opens application.controller to javafx.fxml;
+    exports application.controller;
 }

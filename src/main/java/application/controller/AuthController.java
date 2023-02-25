@@ -1,5 +1,7 @@
-package application;
+package application.controller;
 
+import application.Jeu;
+import application.connectionDB;
 import client.Client;
 import common.ClientSingleton;
 import common.Message;
@@ -162,12 +164,16 @@ public class AuthController {
     }
 
 
-
+    /** Méthode qui ouvre "PageGame" en renvoyant au serveur les informations du player et ajout un client
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void userLogIn(ActionEvent e) throws IOException {
         boolean canLogIn = checkLogIn();
 
         if(canLogIn){
+            this.player.setPerso(choicePerso);
             PlayerSingleton.getInstance().setObject(this.player);
             FXMLLoader loader = new FXMLLoader(Jeu.class.getResource("PageGame.fxml"));
             AnchorPane gamePage = loader.load();
@@ -188,6 +194,9 @@ public class AuthController {
         }
     }
 
+    /** Méthode qui utilise le fichier "config.properties" : les paramètres de connexion au serveur
+     * @return properties : les paramètres pour la connexion au serveur
+     */
     public String[] getServerProperties(){
         try {
             Properties prop = new Properties();
@@ -211,6 +220,10 @@ public class AuthController {
         }
     }
 
+    /** Méthode qui vérifie avec la base de données que le joueur est bien créé et récupère les informations dans la base de donnée du user
+     * @return true si le user existe et que son identifiant et mot de passe correspondent à la base de donnée
+     * @throws IOException
+     */
     private boolean checkLogIn() throws IOException {
         try {
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
@@ -249,6 +262,10 @@ public class AuthController {
         return false;
     }
 
+    /** Méthode qui écrit un message qui confirme la création de l'utilisateur et initialise les champs user et password a 'null'
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void userSignIn(ActionEvent e) throws IOException {
         boolean signedIn = checkSignIn();
@@ -259,6 +276,10 @@ public class AuthController {
         }
     }
 
+    /** Méthode qui vérifie avec le username si le user existe déjà et si ce n'est pas le cas il en crée un
+     * @return boolean true si le username n'existe pas
+     * @throws IOException
+     */
     private boolean checkSignIn() throws IOException{
         try{
             Player player = connectionDB.getPlayerByUsername(username.getText().toString());
@@ -303,6 +324,9 @@ public class AuthController {
         choosePerso(3);
     }
 
+    /** Méthode qui sélectionne le perso qu'on choisi
+     * @param choice : le choix du perso
+     */
     public void choosePerso(int choice){
         //ajouter choosePerso sur les boutons dans le fichier fxml en format choosePerso(0) choosePerso(1)...
         switch (choice){

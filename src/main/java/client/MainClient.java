@@ -3,7 +3,7 @@ package client;
 
 import application.App;
 import application.Jeu;
-import application.JeuController;
+import application.controller.JeuController;
 import application.ShiFuMi;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

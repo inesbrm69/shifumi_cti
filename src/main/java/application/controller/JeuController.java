@@ -1,4 +1,4 @@
-package application;
+package application.controller;
 
 import client.Client;
 /*import client.MainClient;*/

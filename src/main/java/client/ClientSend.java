@@ -5,7 +5,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import application.JeuController;
 import common.Message;
 
 public class ClientSend implements Runnable {

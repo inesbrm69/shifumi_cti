@@ -1,9 +1,7 @@
 package server;
 
-import application.JeuController;
 import interfaces.IClient;
 import common.Message;
-import common.Player;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
