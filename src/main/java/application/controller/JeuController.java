@@ -319,7 +319,7 @@ public class JeuController implements Initializable{
             case Z:
                 if(y > 0 && (map.getMapArray()[y-1][x].equals("f") || map.getMapArray()[y-1][x].equals("c"))){
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x, y-1);
+                    String tileToSend = pastTile;
 
                     switch (this.player.getPerso()){
                         case 0:
@@ -377,22 +377,24 @@ public class JeuController implements Initializable{
                         default:
                             break;
                     }
+
+                    pastTile = map.getMapTile(x, y-1);
                     map.setMapTile(x, y-1, "p");
 
+                    player.moveUp();
+
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-
-                    player.moveUp();
                 }
                 break;
             case S:
                 if(y < map.getMapArray().length - 1 && (map.getMapArray()[y+1][x].equals("f") || map.getMapArray()[y+1][x].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x, y+1);
+                    String tileToSend = pastTile;
 
                     switch (this.player.getPerso()){
                         case 0:
@@ -451,22 +453,23 @@ public class JeuController implements Initializable{
                         default:
                             break;
                     }
+
+                    pastTile = map.getMapTile(x, y+1);
                     map.setMapTile(x, y+1, "p");
 
+                    player.moveDown();
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-
-                    player.moveDown();
                 }
                 break;
             case Q:
                 if(x > 0 && (map.getMapArray()[y][x-1].equals("f") || map.getMapArray()[y][x-1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x-1, y);
+                    String tileToSend = pastTile;
 
                     switch (this.player.getPerso()){
                         case 0:
@@ -485,22 +488,22 @@ public class JeuController implements Initializable{
                             break;
                     }
 
+                    pastTile = map.getMapTile(x-1, y);
                     map.setMapTile(x-1, y, "p");
 
+                    player.moveLeft();
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-
-                    player.moveLeft();
                 }
                 break;
             case D:
                 if(x < map.getMapArray()[0].length - 1 && (map.getMapArray()[y][x+1].equals("f") || map.getMapArray()[y][x+1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x+1, y);
+                    String tileToSend = pastTile;
 
                     switch (this.player.getPerso()){
                         case 0:
@@ -518,16 +521,18 @@ public class JeuController implements Initializable{
                         default:
                             break;
                     }
+
+                    pastTile = map.getMapTile(x+1, y);
                     map.setMapTile(x+1, y, "p");
 
+                    player.moveRight();
+
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-
-                    player.moveRight();
                 }
                 break;
         }
@@ -558,7 +563,9 @@ public class JeuController implements Initializable{
     }
 
     public void printOthers(PlayerCoords playerCoords){
+        //Platform.runLater() parce que sinon l'action n'est pas faite sur le thread de JavaFX
         Platform.runLater(() -> {
+            System.out.println("ok");
             ImageView otherPlayer = new ImageView();
             switch (playerCoords.getPlayer().getPerso()) {
                 case 0:
@@ -578,7 +585,19 @@ public class JeuController implements Initializable{
 
             }
 
-            // gridMap.getChildren().remove(playerImage);
+            Node node = null;
+            for (Node child : gridMap.getChildren()) {
+                if (GridPane.getColumnIndex(child) == playerCoords.getOldX() && GridPane.getRowIndex(child) == playerCoords.getOldY()) {
+                    node = child;
+                    break;
+                }
+            }
+            if (node != null) {
+                gridMap.getChildren().remove(node);
+            }
+
+            map.setMapTile(playerCoords.getOldX(), playerCoords.getOldY(), playerCoords.getPastTile());
+            map.setMapTile(playerCoords.getPlayer().getX(), playerCoords.getPlayer().getY(), "o");
             gridMap.add(otherPlayer, playerCoords.getPlayer().getX(), playerCoords.getPlayer().getY());
         });
     }
