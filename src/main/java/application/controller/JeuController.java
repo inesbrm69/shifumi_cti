@@ -364,11 +364,16 @@ public class JeuController implements Initializable{
         // Supprime le label précédent s'il existe
         gridMap.getChildren().remove(usernameLabel);
 
-        // Ajoute le nouveau label avec le nom d'utilisateur aux nouvelles coordonnées
+        // Ajoute le nouveau label avec le nom d'utilisateur aux nouvelles coordonnées,
+        // mais avec un décalage vertical pour le placer au-dessus du joueur
         Label username = new Label(player.getUsername());
-        GridPane.setHalignment(username, HPos.CENTER); // centrer le texte horizontalement
-        gridMap.add(username, x, y);
+        username.setStyle("-fx-font-size: 14px;" +
+                "-fx-font-weight: bold;");
+        GridPane.setHalignment(username, HPos.LEFT); // centre le texte horizontalement
+        GridPane.setValignment(username, VPos.BOTTOM); // place le texte en haut de la cellule
+        gridMap.add(username, newX, newY-1);
         usernameLabel = username;
+
     }
 
 
@@ -381,7 +386,28 @@ public class JeuController implements Initializable{
         playerImage = new ImageView();
         playerImage.setImage(new Image("sprite0.png"));
 
+        // Obtient les nouvelles coordonnées du joueur
+        int newX = player.getX();
+        int newY = player.getY();
+
+        // Supprime l'image précédente du joueur
+        gridMap.getChildren().remove(playerImage);
+
+        // Ajoute la nouvelle image du joueur aux nouvelles coordonnées
         gridMap.add(playerImage, 8, 7);
+
+        // Supprime le label précédent s'il existe
+        gridMap.getChildren().remove(usernameLabel);
+
+        // Ajoute le nouveau label avec le nom d'utilisateur aux nouvelles coordonnées,
+        // mais avec un décalage vertical pour le placer au-dessus du joueur
+        Label username = new Label(player.getUsername());
+        username.setStyle("-fx-font-size: 14px;" +
+                "-fx-font-weight: bold;");
+        GridPane.setHalignment(username, HPos.LEFT); // centre le texte horizontalement
+        GridPane.setValignment(username, VPos.BOTTOM); // place le texte en haut de la cellule
+        gridMap.add(username, newX, newY-1);
+        usernameLabel = username;
     }
 
 
