@@ -29,12 +29,12 @@
         </ImageView>
         <Pane fx:id="panelMap" layoutX="140.0" layoutY="89.0" prefHeight="458.0" prefWidth="663.0">
             <children>
-                <ImageView fitHeight="513.0" fitWidth="750.0" layoutX="-41.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="431.0" fitWidth="636.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@images/centrepkm_WB.png" />
+                        <Image url="@images/centrePkmEmpty.png" />
                     </image>
                 </ImageView>
-                <GridPane fx:id="gridMap" layoutX="-7.0" layoutY="96.0" prefHeight="362.0" prefWidth="680.0">
+                <GridPane fx:id="gridMap" layoutX="-7.0" layoutY="90.0" prefHeight="362.0" prefWidth="680.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,7 +68,7 @@
                 </GridPane>
             </children>
         </Pane>
-        <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" prefHeight="39.0" onAction="#enterMessage" prefWidth="636.0" promptText="Send a message...">
+        <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" onAction="#enterMessage" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
             <font>
                 <Font name="System Italic" size="22.0" />
             </font>
