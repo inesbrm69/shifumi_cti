@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleMovePerso" prefHeight="682.0" prefWidth="1199.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JeuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleMovePerso" prefHeight="682.0" prefWidth="1199.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.JeuController">
     <children>
         <ImageView fitHeight="51.0" fitWidth="276.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -68,7 +68,7 @@
                 </GridPane>
             </children>
         </Pane>
-        <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" prefHeight="39.0" prefWidth="636.0" promptText="Send a message...">
+        <TextField fx:id="champMessage" layoutX="436.0" layoutY="587.0" prefHeight="39.0" onAction="#enterMessage" prefWidth="636.0" promptText="Send a message...">
             <font>
                 <Font name="System Italic" size="22.0" />
             </font>
