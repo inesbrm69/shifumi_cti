@@ -15,8 +15,9 @@ public class connectionDB {
     private static String username;
     private static String password;
 
-    /** Méthode qui crée les paramètres pour la connexion à la base de données
-     * @return properties : les paramètres pour la connexion à la base de données
+    /** Méthode qui lit les propriétés d'un serveur à partir d'un fichier de configuration.
+     * @return un tableau de deux chaînes de caractères, contenant l'adresse IP et le port du serveur.
+     *
      */
     public static String[] getDBProperties(){
 

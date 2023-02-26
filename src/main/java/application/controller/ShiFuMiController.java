@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ShiFuMiController {
 
-    /** Méthode qui renvoie à la page d'authentification
+    /** Méthode qui envoie l'utilisateur à la page d'authentification
      * @param e
      * @throws IOException
      */
