@@ -164,8 +164,8 @@ public class AuthController {
     }
 
 
-    /** Méthode qui ouvre "PageGame" en renvoyant au serveur les informations du player et ajout un client
-     * @param e
+    /** Méthode qui vérifie si l'utilisateur peut se connecter. Si c'est le cas, crée un client et lance la page de jeu.
+     * @param e l'événement de clic sur le bouton de connexion.
      * @throws IOException
      */
     @FXML
@@ -195,8 +195,9 @@ public class AuthController {
         }
     }
 
-    /** Méthode qui utilise le fichier "config.properties" : les paramètres de connexion au serveur
-     * @return properties : les paramètres pour la connexion au serveur
+    /** Méthode qui lit les propriétés d'un serveur à partir d'un fichier de configuration.
+     * @return un tableau de deux chaînes de caractères, contenant l'adresse IP et le port du serveur.
+     *
      */
     public String[] getServerProperties(){
         try {
@@ -222,7 +223,7 @@ public class AuthController {
     }
 
     /** Méthode qui vérifie avec la base de données que le joueur est bien créé et récupère les informations dans la base de donnée du user
-     * @return true si le user existe et que son identifiant et mot de passe correspondent à la base de donnée
+     * @return true si les informations de connexion sont valides, false sinon.
      * @throws IOException
      */
     private boolean checkLogIn() throws IOException {
@@ -277,8 +278,8 @@ public class AuthController {
         }
     }
 
-    /** Méthode qui vérifie avec le username si le user existe déjà et si ce n'est pas le cas il en crée un
-     * @return boolean true si le username n'existe pas
+    /** Méthode qui vérifie si l'utilisateur peut créer un nouveau compte.
+     * @return boolean true si le compte a été créé avec succès, false sinon.
      * @throws IOException
      */
     private boolean checkSignIn() throws IOException{
@@ -325,7 +326,9 @@ public class AuthController {
         choosePerso(3);
     }
 
-    /** Méthode qui sélectionne le perso qu'on choisi
+    /** Méthode appelée lorsqu'un utilisateur clique sur l'une des images de personnage disponibles pour choisir son personnage.
+     * Elle met en évidence l'image du personnage sélectionné en ajoutant une bordure verte autour de celle-ci,
+     * tout en enlevant les bordures des autres images.
      * @param choice : le choix du perso
      */
     public void choosePerso(int choice){

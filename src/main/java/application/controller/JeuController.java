@@ -152,7 +152,8 @@ public class JeuController implements Initializable{
 
 
 
-    /** Méthode qui fait le style de message (cad que quand c'est le user qui envoie le message, il est en blanc et quand c'est les autres c'est en rouge
+    /**
+     * Méthode qui fait le style de message (cad que quand c'est le user qui envoie le message, il est en blanc et quand c'est les autres c'est en rouge
      ** @param message : contient les informations du player du genre le contenu du message, son username...
      */
     public void printNewMessage(Message message){
@@ -246,7 +247,10 @@ public class JeuController implements Initializable{
         });
     }
 
-    /**Méthode qui envoie le message
+    /**
+     * Méthode  lorsqu'un utilisateur souhaite envoyer un message dans la conversation.
+     * Elle vérifie si le champ de saisie de message n'est pas vide, crée un nouvel objet Message avec le contenu du message et l'identifiant
+     * de l'utilisateur, envoie le message au serveur via le client, puis efface le champ de saisie de message.
      * @throws IOException
      */
     @FXML
@@ -262,6 +266,10 @@ public class JeuController implements Initializable{
 
     }
 
+    /**
+     * Attache un événement pour déclencher l'envoi d'un message lorsque l'utilisateur appuie sur la touche "Entrée" dans le champ de message.
+     * Le message sera envoyé en appelant la méthode onSendData().
+     */
     @FXML
     public void enterMessage(){
         champMessage.setOnKeyPressed(event -> {
@@ -275,15 +283,26 @@ public class JeuController implements Initializable{
         });
     }
 
+    /**Méthode qui initialise l'interface utilisateur du joueur et le panneau de jeu.
+     * Elle appelle également la méthode initMap() pour initialiser la carte du jeu.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Stage stage = (Stage) anchorPane.getScene().getWindow();
-        //stage.setOnCloseRequest(event -> this.client.disconnectedServer());
         setPlayerInterface();
         setPanelGame();
         map.initMap();
     }
 
+
+    /**
+     * Méthode gère les déplacements du personnage en réponse à un événement de touche de clavier.
+     * Les touches autorisées sont Z, S, Q et D qui correspondent respectivement aux déplacements vers le haut, le bas, la gauche et la droite.
+     * Si le personnage peut se déplacer dans la direction donnée par la touche pressée, alors la méthode met à jour la position du personnage sur la carte et l'affiche à la nouvelle position.
+     * Cette méthode affiche également la carte mise à jour dans la console à chaque déplacement.
+     * @param e un objet KeyEvent qui représente l'événement de touche de clavier à gérer.
+     */
     @FXML
     private void handleMovePerso(KeyEvent e) {
         KeyCode code = e.getCode();
@@ -358,6 +377,11 @@ public class JeuController implements Initializable{
         gridMap.add(playerImage, player.getX(), player.getY());
     }
 
+    /**
+     * Méthode qui initialise l'image du joueur et l'ajoute à la grille de la carte de jeu.
+     * L'image utilisée pour représenter le joueur est chargée à partir du fichier "sprite0.png".
+     * L'image est placée à la position initiale du joueur (8,7) dans la grille de la carte de jeu.
+     */
     private void setPanelGame() {
         playerImage = new ImageView();
         playerImage.setImage(new Image("sprite0.png"));
@@ -365,8 +389,10 @@ public class JeuController implements Initializable{
     }
 
 
-
-
+    /**
+     * Met à jour l'interface graphique du joueur avec son image de personnage, son nom d'utilisateur
+     * et son score.
+     */
     private void setPlayerInterface(){
                 Player playerSingleton = PlayerSingleton.getInstance().getObject();
                 this.player = playerSingleton;
