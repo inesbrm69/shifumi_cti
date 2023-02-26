@@ -1,6 +1,6 @@
 Shifumi.CIT est le projet développé par Célia, Inès et Tom.
 C'est un jeu avec une vue de type RPG vaguement inspiré par Pokemon.
-Le jeu se joue a 8 joueurs sur une même map, qui pourront se défier de ShiFuMi (Pierre-Feuille-Ciseaux) en duel autour d'une table.
+Le jeu se joue a 8 joueurs sur une même map, qui pourront se défier à ShiFuMi (Pierre-Feuille-Ciseaux) en duel autour d'une table.
 
 Pour lancer le jeu, il faut dans un premier temps configurer le serveur (port 50000) et créer les "clients".
 Ensuite il faut suivre ces étapes :
