@@ -384,7 +384,7 @@ public class JeuController implements Initializable{
                     player.moveUp();
 
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -458,8 +458,9 @@ public class JeuController implements Initializable{
                     map.setMapTile(x, y+1, "p");
 
                     player.moveDown();
+
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -492,8 +493,9 @@ public class JeuController implements Initializable{
                     map.setMapTile(x-1, y, "p");
 
                     player.moveLeft();
+
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -526,9 +528,8 @@ public class JeuController implements Initializable{
                     map.setMapTile(x+1, y, "p");
 
                     player.moveRight();
-
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -565,7 +566,6 @@ public class JeuController implements Initializable{
     public void printOthers(PlayerCoords playerCoords){
         //Platform.runLater() parce que sinon l'action n'est pas faite sur le thread de JavaFX
         Platform.runLater(() -> {
-            System.out.println("ok");
             ImageView otherPlayer = new ImageView();
             switch (playerCoords.getPlayer().getPerso()) {
                 case 0:
