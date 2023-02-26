@@ -59,6 +59,10 @@ public class JeuController implements Initializable{
     private GridPane gridMap;
     @FXML
     private ImageView playerImage;
+    @FXML
+    private ImageView chairImage;
+    @FXML
+    private ImageView tableImage;
 
     private Server server;
     private Client client;
@@ -279,9 +283,9 @@ public class JeuController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Stage stage = (Stage) anchorPane.getScene().getWindow();
         //stage.setOnCloseRequest(event -> this.client.disconnectedServer());
+        map.initMap();
         setPlayerInterface();
         setPanelGame();
-        map.initMap();
     }
 
     @FXML
@@ -362,6 +366,27 @@ public class JeuController implements Initializable{
         playerImage = new ImageView();
         playerImage.setImage(new Image("sprite0.png"));
         gridMap.add(playerImage, 8, 7);
+        // Load the image for the sprite
+
+
+
+    // Loop through the map and display the sprite at each "c" position
+        for (int i = 0; i <  map.getMapArray().length; i++) {
+            for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                if (map.getMapArray()[i][j].equals("t")) {
+                    // Add the sprite view to the game pane
+                    tableImage = new ImageView();
+                    tableImage.setImage(new Image("table.png"));
+                    gridMap.add(tableImage,j,i);
+                }
+                if (map.getMapArray()[i][j].equals("c")) {
+                    // Add the sprite view to the game pane
+                    chairImage = new ImageView();
+                    chairImage.setImage(new Image("chair.png"));
+                    gridMap.add(chairImage,j,i);
+                }
+            }
+        }
     }
 
 
