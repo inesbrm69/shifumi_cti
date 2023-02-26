@@ -2,10 +2,7 @@ package application.controller;
 
 import client.Client;
 /*import client.MainClient;*/
-import common.ClientSingleton;
-import common.Message;
-import common.Player;
-import common.PlayerSingleton;
+import common.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,21 +19,20 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import org.apache.commons.codec.binary.Hex;
 import server.ConnectedClient;
-import server.Connection;
-import server.MainServer;
 import server.Server;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.ResourceBundle;
 
 public class JeuController implements Initializable{
@@ -56,10 +53,20 @@ public class JeuController implements Initializable{
     private Label usernameLabel;
     @FXML
     private Label scoreLabel;
+    @FXML
+    private Pane panelMap;
+    @FXML
+    private GridPane gridMap;
+    @FXML
+    private ImageView playerImage;
 
     private Server server;
     private Client client;
     private Player player;
+
+    private Map map = new Map();
+
+    private String pastTile = "f";
 
     private ConnectedClient connectedClient;
 
@@ -273,10 +280,96 @@ public class JeuController implements Initializable{
         //Stage stage = (Stage) anchorPane.getScene().getWindow();
         //stage.setOnCloseRequest(event -> this.client.disconnectedServer());
         setPlayerInterface();
+        setPanelGame();
+        map.initMap();
     }
 
-        private void setPlayerInterface(){
+    @FXML
+    private void handleMovePerso(KeyEvent e) {
+        KeyCode code = e.getCode();
+
+        int x = player.getX();
+        int y = player.getY();
+
+
+        switch (code) {
+            case Z:
+                if(y > 0 && (map.getMapArray()[y-1][x].equals("f") || map.getMapArray()[y-1][x].equals("c"))){
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+                    map.setMapTile(x, y, pastTile);
+                    pastTile = map.getMapTile(x, y-1);
+                    map.setMapTile(x, y-1, "p");
+
+                    player.moveUp();
+                }
+                break;
+            case S:
+                if(y < map.getMapArray().length - 1 && (map.getMapArray()[y+1][x].equals("f") || map.getMapArray()[y+1][x].equals("c"))) {
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+                    map.setMapTile(x, y, pastTile);
+                    pastTile = map.getMapTile(x, y+1);
+                    map.setMapTile(x, y+1, "p");
+
+                    player.moveDown();
+                }
+                break;
+            case Q:
+                if(x > 0 && (map.getMapArray()[y][x-1].equals("f") || map.getMapArray()[y][x-1].equals("c"))) {
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+                    map.setMapTile(x, y, pastTile);
+                    pastTile = map.getMapTile(x-1, y);
+                    map.setMapTile(x-1, y, "p");
+
+                    player.moveLeft();
+                }
+                break;
+            case D:
+                if(x < map.getMapArray()[0].length - 1 && (map.getMapArray()[y][x+1].equals("f") || map.getMapArray()[y][x+1].equals("c"))) {
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+                    map.setMapTile(x, y, pastTile);
+                    pastTile = map.getMapTile(x+1, y);
+                    map.setMapTile(x+1, y, "p");
+
+                    player.moveRight();
+                }
+                break;
+        }
+        gridMap.getChildren().remove(playerImage);
+        gridMap.add(playerImage, player.getX(), player.getY());
+    }
+
+    private void setPanelGame() {
+        playerImage = new ImageView();
+        playerImage.setImage(new Image("sprite0.png"));
+        gridMap.add(playerImage, 8, 7);
+    }
+
+
+
+
+    private void setPlayerInterface(){
                 Player playerSingleton = PlayerSingleton.getInstance().getObject();
+                this.player = playerSingleton;
 
                 switch (playerSingleton.getPerso()){
                     case 0:
@@ -297,5 +390,4 @@ public class JeuController implements Initializable{
                 usernameLabel.setText(playerSingleton.getUsername());
                 scoreLabel.setText(playerSingleton.getScore() + " PTS");
         }
-
 }
