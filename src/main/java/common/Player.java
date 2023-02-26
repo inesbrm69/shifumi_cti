@@ -18,8 +18,8 @@ public class Player implements Serializable {
 		this.password = password;
 		this.score = score;
 		this.perso = perso;
-		this.x = 9;
-		this.y = 8;
+		this.x = 8;
+		this.y = 7;
 	}
 
 	public int getId() {

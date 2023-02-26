@@ -62,7 +62,7 @@ public class JeuController implements Initializable{
 
     private Map map = new Map();
 
-    private String pastTile;
+    private String pastTile = "f";
 
     private ConnectedClient connectedClient;
 
@@ -247,6 +247,12 @@ public class JeuController implements Initializable{
         switch (code) {
             case Z:
                 if(y > 0 && (map.getMapArray()[y-1][x].equals("f") || map.getMapArray()[y-1][x].equals("c"))){
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x, y-1);
                     map.setMapTile(x, y-1, "p");
@@ -256,7 +262,12 @@ public class JeuController implements Initializable{
                 break;
             case S:
                 if(y < map.getMapArray().length - 1 && (map.getMapArray()[y+1][x].equals("f") || map.getMapArray()[y+1][x].equals("c"))) {
-                    System.out.println(pastTile);
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x, y+1);
                     map.setMapTile(x, y+1, "p");
@@ -266,6 +277,12 @@ public class JeuController implements Initializable{
                 break;
             case Q:
                 if(x > 0 && (map.getMapArray()[y][x-1].equals("f") || map.getMapArray()[y][x-1].equals("c"))) {
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x-1, y);
                     map.setMapTile(x-1, y, "p");
@@ -275,6 +292,13 @@ public class JeuController implements Initializable{
                 break;
             case D:
                 if(x < map.getMapArray()[0].length - 1 && (map.getMapArray()[y][x+1].equals("f") || map.getMapArray()[y][x+1].equals("c"))) {
+                    for (int i = 0; i <  map.getMapArray().length; i++) {
+                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
+                            System.out.print( map.getMapArray()[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+                    map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x+1, y);
                     map.setMapTile(x+1, y, "p");
 
