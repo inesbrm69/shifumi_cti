@@ -8,8 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -310,72 +312,65 @@ public class JeuController implements Initializable{
         int x = player.getX();
         int y = player.getY();
 
-
         switch (code) {
             case Z:
-                if(y > 0 && (map.getMapArray()[y-1][x].equals("f") || map.getMapArray()[y-1][x].equals("c"))){
-                    for (int i = 0; i <  map.getMapArray().length; i++) {
-                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
-                            System.out.print( map.getMapArray()[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
+                if (y > 0 && (map.getMapArray()[y - 1][x].equals("f") || map.getMapArray()[y - 1][x].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x, y-1);
-                    map.setMapTile(x, y-1, "p");
+                    pastTile = map.getMapTile(x, y - 1);
+                    map.setMapTile(x, y - 1, "p");
 
                     player.moveUp();
                 }
                 break;
             case S:
-                if(y < map.getMapArray().length - 1 && (map.getMapArray()[y+1][x].equals("f") || map.getMapArray()[y+1][x].equals("c"))) {
-                    for (int i = 0; i <  map.getMapArray().length; i++) {
-                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
-                            System.out.print( map.getMapArray()[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
+                if (y < map.getMapArray().length - 1 && (map.getMapArray()[y + 1][x].equals("f") || map.getMapArray()[y + 1][x].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x, y+1);
-                    map.setMapTile(x, y+1, "p");
+                    pastTile = map.getMapTile(x, y + 1);
+                    map.setMapTile(x, y + 1, "p");
 
                     player.moveDown();
                 }
                 break;
             case Q:
-                if(x > 0 && (map.getMapArray()[y][x-1].equals("f") || map.getMapArray()[y][x-1].equals("c"))) {
-                    for (int i = 0; i <  map.getMapArray().length; i++) {
-                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
-                            System.out.print( map.getMapArray()[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
+                if (x > 0 && (map.getMapArray()[y][x - 1].equals("f") || map.getMapArray()[y][x - 1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x-1, y);
-                    map.setMapTile(x-1, y, "p");
+                    pastTile = map.getMapTile(x - 1, y);
+                    map.setMapTile(x - 1, y, "p");
 
                     player.moveLeft();
                 }
                 break;
             case D:
-                if(x < map.getMapArray()[0].length - 1 && (map.getMapArray()[y][x+1].equals("f") || map.getMapArray()[y][x+1].equals("c"))) {
-                    for (int i = 0; i <  map.getMapArray().length; i++) {
-                        for (int j = 0; j <  map.getMapArray()[i].length; j++) {
-                            System.out.print( map.getMapArray()[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
+                if (x < map.getMapArray()[0].length - 1 && (map.getMapArray()[y][x + 1].equals("f") || map.getMapArray()[y][x + 1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
-                    pastTile = map.getMapTile(x+1, y);
-                    map.setMapTile(x+1, y, "p");
+                    pastTile = map.getMapTile(x + 1, y);
+                    map.setMapTile(x + 1, y, "p");
 
                     player.moveRight();
                 }
                 break;
         }
+
+        // Obtient les nouvelles coordonnées du joueur
+        int newX = player.getX();
+        int newY = player.getY();
+
+        // Supprime l'image précédente du joueur
         gridMap.getChildren().remove(playerImage);
-        gridMap.add(playerImage, player.getX(), player.getY());
+
+        // Ajoute la nouvelle image du joueur aux nouvelles coordonnées
+        gridMap.add(playerImage, newX, newY);
+
+        // Supprime le label précédent s'il existe
+        gridMap.getChildren().remove(usernameLabel);
+
+        // Ajoute le nouveau label avec le nom d'utilisateur aux nouvelles coordonnées
+        Label username = new Label(player.getUsername());
+        GridPane.setHalignment(username, HPos.CENTER); // centrer le texte horizontalement
+        gridMap.add(username, x, y);
+        usernameLabel = username;
     }
+
 
     /**
      * Méthode qui initialise l'image du joueur et l'ajoute à la grille de la carte de jeu.
@@ -385,6 +380,7 @@ public class JeuController implements Initializable{
     private void setPanelGame() {
         playerImage = new ImageView();
         playerImage.setImage(new Image("sprite0.png"));
+
         gridMap.add(playerImage, 8, 7);
     }
 
