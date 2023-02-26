@@ -1,5 +1,7 @@
 package server;
 
+import common.Map;
+
 import java.io.IOException;
 
 public class MainServer {
@@ -10,7 +12,9 @@ public class MainServer {
 			printUsage();
 		} else {
 			Integer port = new Integer(args[0]);
+			Map map = new Map();
 			Server server = new Server(port);
+			server.setMap(map);
 		}
 	}
 

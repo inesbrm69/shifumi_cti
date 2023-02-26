@@ -3,6 +3,7 @@ package server;
 import application.controller.JeuController;
 import client.Client;
 import common.ClientSingleton;
+import common.PlayerCoords;
 import interfaces.IClient;
 import common.Message;
 
@@ -122,6 +123,16 @@ public class ConnectedClient implements Runnable, IClient, Serializable {
 
     }
 
+    public void sendCoords(PlayerCoords playerCoords) {
+        try {
+            this.out.writeObject(playerCoords);
+            this.out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void closeClient() {
         try {
             this.in.close();
@@ -142,22 +153,38 @@ public class ConnectedClient implements Runnable, IClient, Serializable {
 
             while (isActive) {
                 Message mess;
+                PlayerCoords playerCoords;
                 try {
-                    mess = (Message) in.readObject();
+                    Object objet = in.readObject();
+                    if(objet instanceof Message){
+                        mess = (Message) objet;
 
-                    if (mess != null) {
-                        //mess.setSender(this);
-                        //mess.setSenderString(this.getPlayerUsername());
-                        if(mess.getSenderString() == null){
-                            server.messageToPlayers(mess, id, false);
-                        }else{
-                            server.messageToPlayers(mess, id, true);
+                        if (mess != null) {
+                            //mess.setSender(this);
+                            //mess.setSenderString(this.getPlayerUsername());
+                            if(mess.getSenderString() == null){
+                                server.messageToPlayers(mess, id, false);
+                            }else{
+                                server.messageToPlayers(mess, id, true);
+                            }
+
+                        } else {
+                            server.disconnectedClient(this);
+                            isActive = false;
                         }
-
-                    } else {
-                        server.disconnectedClient(this);
-                        isActive = false;
                     }
+                    else if(objet instanceof PlayerCoords){
+                        playerCoords = (PlayerCoords) objet;
+
+                        if (playerCoords != null) {
+                            server.broadcastCoords(playerCoords, this.getId());
+
+                        } else {
+                            server.disconnectedClient(this);
+                            isActive = false;
+                        }
+                    }
+
                 } catch (ClassNotFoundException | IOException e) {
                     e.printStackTrace();
                 }

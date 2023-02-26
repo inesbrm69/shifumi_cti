@@ -1,8 +1,6 @@
 package server;
 
-import common.Message;
-import common.Player;
-import common.PlayerSingleton;
+import common.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ public class Server {
 	private List<ConnectedClient> clients;
 	private List<ConnectedClient> playingClients;
 	private List<ConnectedClient> waitingClients;
-
+	private Map map;
 
 	public List<ConnectedClient> getClients() {
 		return clients;
@@ -40,6 +38,14 @@ public class Server {
 
 	public void setWaitingClients(List<ConnectedClient> clients) {
 		this.waitingClients = clients;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
 	}
 
 	public Server(int port) {
@@ -91,6 +97,20 @@ public class Server {
 				client.sendMessage(mess);
 			}
 		}
+
+	}
+
+	public void broadcastCoords(PlayerCoords playerCoords, int id) {
+		updateMap(playerCoords, id);
+		for (ConnectedClient client : clients) {
+			if (client.getId() != id) {
+				client.sendCoords(playerCoords);
+			}
+		}
+
+	}
+
+	private void updateMap(PlayerCoords playerCoords, int id){
 
 	}
 
