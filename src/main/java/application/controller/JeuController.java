@@ -4,14 +4,10 @@ import client.Client;
 /*import client.MainClient;*/
 import common.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,19 +15,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 import server.ConnectedClient;
 import server.Server;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -255,6 +247,7 @@ public class JeuController implements Initializable{
      */
     @FXML
     public void onSendData() throws IOException {
+        this.client = ClientSingleton.getInstance().getObject();
         this.player = PlayerSingleton.getInstance().getObject();
         if(!getChampMessage().getText().isEmpty()){
             Message message = new Message(player.getUsername(), getChampMessage().getText());
@@ -290,6 +283,7 @@ public class JeuController implements Initializable{
 
     @FXML
     private void handleMovePerso(KeyEvent e) {
+        this.client = ClientSingleton.getInstance().getObject();
         KeyCode code = e.getCode();
 
         int x = player.getX();
@@ -360,6 +354,13 @@ public class JeuController implements Initializable{
                     }
                     map.setMapTile(x, y-1, "p");
 
+                    try {
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        this.client.sendCoords(playerCoords);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     player.moveUp();
                 }
                 break;
@@ -427,6 +428,13 @@ public class JeuController implements Initializable{
                     }
                     map.setMapTile(x, y+1, "p");
 
+                    try {
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        this.client.sendCoords(playerCoords);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     player.moveDown();
                 }
                 break;
@@ -454,6 +462,13 @@ public class JeuController implements Initializable{
 
                     map.setMapTile(x-1, y, "p");
 
+                    try {
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        this.client.sendCoords(playerCoords);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     player.moveLeft();
                 }
                 break;
@@ -480,12 +495,45 @@ public class JeuController implements Initializable{
                     }
                     map.setMapTile(x+1, y, "p");
 
+                    try {
+                        PlayerCoords playerCoords = new PlayerCoords(this.player, x, y, pastTile);
+                        this.client.sendCoords(playerCoords);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     player.moveRight();
                 }
                 break;
         }
         gridMap.getChildren().remove(playerImage);
         gridMap.add(playerImage, player.getX(), player.getY());
+    }
+
+    public void printOthers(PlayerCoords playerCoords){
+        Platform.runLater(() -> {
+            ImageView otherPlayer = new ImageView();
+            switch (playerCoords.getPlayer().getPerso()) {
+                case 0:
+                    otherPlayer.setImage(new Image("0down1.png"));
+                    break;
+                case 1:
+                    otherPlayer.setImage(new Image("1down1.png"));
+                    break;
+                case 2:
+                    otherPlayer.setImage(new Image("2down1.png"));
+                    break;
+                case 3:
+                    otherPlayer.setImage(new Image("3down1.png"));
+                    break;
+                default:
+                    break;
+
+            }
+
+            // gridMap.getChildren().remove(playerImage);
+            gridMap.add(otherPlayer, playerCoords.getPlayer().getX(), playerCoords.getPlayer().getY());
+        });
     }
 
     private void setPanelGame() {

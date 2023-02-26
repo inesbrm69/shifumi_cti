@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import application.controller.AuthController;
 import application.controller.JeuController;
+import common.PlayerCoords;
 import interfaces.IClient;
 import common.Message;
 
@@ -156,6 +157,10 @@ public class Client implements IClient {
 		jeuView.printNewMessage(mess);
 	}
 
+	public void coordsReceived(PlayerCoords playerCoords){
+		jeuView.printOthers(playerCoords);
+	}
+
 
 	/** Méthode qui envoit le message
 	 * @param message
@@ -163,6 +168,11 @@ public class Client implements IClient {
 	 */
 	public void sendMessage(Message message) throws IOException {
 		this.out.writeObject(message);
+		this.out.flush();
+	}
+
+	public void sendCoords(PlayerCoords playerCoords) throws IOException {
+		this.out.writeObject(playerCoords);
 		this.out.flush();
 	}
 }
