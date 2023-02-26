@@ -301,61 +301,139 @@ public class JeuController implements Initializable{
                 if(y > 0 && (map.getMapArray()[y-1][x].equals("f") || map.getMapArray()[y-1][x].equals("c"))){
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x, y-1);
-                    map.setMapTile(x, y-1, "p");
-
-                    player.moveUp();
 
                     switch (this.player.getPerso()){
                         case 0:
-                            playerImage.setImage(new Image("0up1.png"));
+                            if(map.getMapArray()[y-1][x].equals("c")){
+                                if(map.getMapArray()[y-1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("0left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("0right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("0up1.png"));
+                            }
                             break;
                         case 1:
-                            playerImage.setImage(new Image("1up1.png"));
+                            if(map.getMapArray()[y-1][x].equals("c")){
+                                if(map.getMapArray()[y-1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("1left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("1right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("1up1.png"));
+                            }
                             break;
                         case 2:
-                            playerImage.setImage(new Image("2up1.png"));
+                            if(map.getMapArray()[y-1][x].equals("c")){
+                                if(map.getMapArray()[y-1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("2left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("2right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("2up1.png"));
+                            }
                             break;
                         case 3:
-                            playerImage.setImage(new Image("3up1.png"));
+                            if(map.getMapArray()[y-1][x].equals("c")){
+                                if(map.getMapArray()[y-1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("3left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("3right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("3up1.png"));
+                            }
                             break;
                         default:
                             break;
                     }
+                    map.setMapTile(x, y-1, "p");
+
+                    player.moveUp();
                 }
                 break;
             case S:
                 if(y < map.getMapArray().length - 1 && (map.getMapArray()[y+1][x].equals("f") || map.getMapArray()[y+1][x].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x, y+1);
-                    map.setMapTile(x, y+1, "p");
-
-                    player.moveDown();
 
                     switch (this.player.getPerso()){
                         case 0:
-                            playerImage.setImage(new Image("0down1.png"));
+                            if(map.getMapArray()[y+1][x].equals("c")){
+                                if(map.getMapArray()[y+1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("0left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("0right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("0down1.png"));
+                            }
                             break;
                         case 1:
-                            playerImage.setImage(new Image("1down1.png"));
+                            var ok = map.getMapArray()[y+1][x];
+                            if(map.getMapArray()[y+1][x].equals("c")){
+                                if(map.getMapArray()[y+1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("1left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("1right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("1down1.png"));
+                            }
                             break;
                         case 2:
-                            playerImage.setImage(new Image("2down1.png"));
+                            if(map.getMapArray()[y+1][x].equals("c")){
+                                if(map.getMapArray()[y+1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("2left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("2right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("2down1.png"));
+                            }
                             break;
                         case 3:
-                            playerImage.setImage(new Image("3down1.png"));
+                            if(map.getMapArray()[y+1][x].equals("c")){
+                                if(map.getMapArray()[y+1][x-1].equals("t")) {
+                                    playerImage.setImage(new Image("3left1.png"));
+                                }
+                                else{
+                                    playerImage.setImage(new Image("3right1.png"));
+                                }
+                            }
+                            else{
+                                playerImage.setImage(new Image("3down1.png"));
+                            }
                             break;
                         default:
                             break;
                     }
+                    map.setMapTile(x, y+1, "p");
+
+                    player.moveDown();
                 }
                 break;
             case Q:
                 if(x > 0 && (map.getMapArray()[y][x-1].equals("f") || map.getMapArray()[y][x-1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x-1, y);
-                    map.setMapTile(x-1, y, "p");
-
-                    player.moveLeft();
 
                     switch (this.player.getPerso()){
                         case 0:
@@ -373,15 +451,16 @@ public class JeuController implements Initializable{
                         default:
                             break;
                     }
+
+                    map.setMapTile(x-1, y, "p");
+
+                    player.moveLeft();
                 }
                 break;
             case D:
                 if(x < map.getMapArray()[0].length - 1 && (map.getMapArray()[y][x+1].equals("f") || map.getMapArray()[y][x+1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
                     pastTile = map.getMapTile(x+1, y);
-                    map.setMapTile(x+1, y, "p");
-
-                    player.moveRight();
 
                     switch (this.player.getPerso()){
                         case 0:
@@ -399,6 +478,9 @@ public class JeuController implements Initializable{
                         default:
                             break;
                     }
+                    map.setMapTile(x+1, y, "p");
+
+                    player.moveRight();
                 }
                 break;
         }
@@ -426,9 +508,6 @@ public class JeuController implements Initializable{
                 break;
         }
         gridMap.add(playerImage, player.getX(), player.getY());
-        playerImage.setImage(new Image("sprite0.png"));
-        gridMap.add(playerImage, 8, 7);
-        // Load the image for the sprite
 
 
 
