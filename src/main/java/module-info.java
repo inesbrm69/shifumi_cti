@@ -5,6 +5,7 @@ module com.example.shifumi_cti {
     requires org.controlsfx.controls;
     requires java.sql;
     requires commons.codec;
+    requires javafx.media;
 
     /*opens com.example.shifumi_cti to javafx.fxml;
     exports com.example.shifumi_cti;
