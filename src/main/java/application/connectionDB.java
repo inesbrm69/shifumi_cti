@@ -15,9 +15,9 @@ public class connectionDB {
     private static String username;
     private static String password;
 
-    //public static void main(String[] args) throws Exception {
-       // executeDBQuery("SELECT * FROM \"UTILISATEUR\"");
-    //}
+    /** Méthode qui crée les paramètres pour la connexion à la base de données
+     * @return properties : les paramètres pour la connexion à la base de données
+     */
     public static String[] getDBProperties(){
 
         try {
@@ -43,6 +43,11 @@ public class connectionDB {
             throw new RuntimeException(e);
         }
     }
+
+    /** Méthode qui récupère les informations du player par rapport à son username
+     * @param _username qui est récupéré dans le champ "username"
+     * @return le player avec ses informations qui sont stockés dans la base de données
+     */
     public static Player getPlayerByUsername(String _username) {
         Connection conn = null;
         PreparedStatement statement = null;
@@ -92,6 +97,10 @@ public class connectionDB {
         return null;
     }
 
+    /** Méthode qui ajoute un nouveau player dans la base de données avec les saisies que l'utilisateur aura saisi
+     * @param player
+     * @return boolean
+     */
     public static boolean addNewPlayer(Player player) {
         Connection conn = null;
         PreparedStatement statement = null;
@@ -126,6 +135,11 @@ public class connectionDB {
         return false;
     }
 
+    /** Méthode qui met à jour dans la base de données le perso en fonction de la saisi du joueur à la page de connexion
+     * @param player
+     * @param persoId
+     * @return boolean
+     */
     public static boolean changePerso(Player player, int persoId){
         Connection conn = null;
         PreparedStatement statement = null;

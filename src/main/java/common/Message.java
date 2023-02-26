@@ -43,17 +43,6 @@ public class Message implements Serializable {
 		this.senderString = sender;
 		this.content = content;
 	}
-
-	/*@Override
-	public String toString() {
-		return "Message{" +
-				"sender=" + sender +
-				", content='" + content + '\'' +
-				", senderString='" + senderString + '\'' +
-				", shifumi=" + shifumi +
-				'}';
-	}*/
-
 	public String toString(boolean isSenderString) {
 		if(isSenderString){
 			return this.getSenderString() + " : " + this.getContent();

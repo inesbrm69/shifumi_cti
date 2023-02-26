@@ -13,6 +13,10 @@ import java.io.IOException;
 
 public class ShiFuMiController {
 
+    /** Méthode qui renvoie à la page d'authentification
+     * @param e
+     * @throws IOException
+     */
     @FXML
 
     public void nextPage(ActionEvent e) throws IOException {
@@ -20,6 +24,7 @@ public class ShiFuMiController {
         Scene scene = new Scene(authPage);
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }

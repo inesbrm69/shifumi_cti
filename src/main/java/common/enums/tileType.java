@@ -3,7 +3,6 @@ package common.enums;
 public enum tileType {
 	VOID("v"),
 	FLOOR("f"),
-	WALL("w"),
 	TABLE("t"),
 	CHAIR("c"),
 	PLAYER("p"),

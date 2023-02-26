@@ -21,12 +21,17 @@ import java.net.URL;
 import java.util.Optional;
 
 public class ShiFuMi extends Application{
+    /**Méthode qui lance la page de l'application
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         AnchorPane pageStart = FXMLLoader.load(ShiFuMi.class.getResource("pageStart.fxml"));
         Scene page_Start = new Scene(pageStart);
         stage.setScene(page_Start);
         stage.setTitle("ShiFuMi.CTI");
+        stage.setResizable(false); // Rend la fenêtre non redimensionnable
         stage.show();
     }
 }

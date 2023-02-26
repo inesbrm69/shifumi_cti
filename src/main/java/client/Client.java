@@ -149,10 +149,18 @@ public class Client implements IClient {
 		
 	}
 
+	/** Méthode qui affiche le message sur le chat au client
+	 * @param mess
+	 */
 	public void messageReceived(Message mess) {
 		jeuView.printNewMessage(mess);
 	}
 
+
+	/** Méthode qui envoit le message
+	 * @param message
+	 * @throws IOException
+	 */
 	public void sendMessage(Message message) throws IOException {
 		this.out.writeObject(message);
 		this.out.flush();
