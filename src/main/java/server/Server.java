@@ -61,16 +61,25 @@ public class Server {
 		return getClients().size();
 	}
 
+	/** Méthode qui ajoute un client dans la liste "clients"
+	 * @param newClient
+	 */
 	public void addClient(ConnectedClient newClient) {
 		this.clients.add(newClient);
 		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is connected"), newClient.getId());
 	}
 
+	/** Méthode qui ajoute le nouveau client dans la liste des joueurs qui y joue
+	 * @param newClient
+	 */
 	public void addPlayingClient(ConnectedClient newClient) {
 		this.playingClients.add(newClient);
 		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is playing"), newClient.getId());
 	}
 
+	/** Méthode qui met les joueurs dans une liste d'attente (max de joueurs 8)
+	 * @param newClient
+	 */
 	public void addWaitingClients(ConnectedClient newClient) {
 		this.waitingClients.add(newClient);
 		//broadcastMessage(new Message(newClient.getPlayerUsername(), " is waiting to join"), newClient.getId());
@@ -79,15 +88,17 @@ public class Server {
 	public void broadcastMessage(Message mess, int id) {
 		for (ConnectedClient client : clients) {
 			if (client.getId() != id) {
-				//if(mess.getSenderString() == null){
-					//mess.setSenderString(mess.getSender().getPlayerUsername());
-				//}
 				client.sendMessage(mess);
 			}
 		}
 
 	}
 
+	/** Envoie un message aux joueurs dans le jeu.
+	 * @param mess le message à envoyer
+	 * @param id l'ID du joueur qui a envoyé le message
+	 * @param sendToAll indique s'il faut envoyer le message à tous les joueurs ou seulement aux joueurs qui ne sont pas l'expéditeur
+	 */
 	public void messageToPlayers(Message mess, int id, boolean sendToAll) {
 		for (ConnectedClient client : playingClients) {
 			if(!sendToAll) {
@@ -104,6 +115,10 @@ public class Server {
 		}
 	}
 
+	/** Envoie un message à un utilisateur spécifié par son identifiant.
+	 * @param mess le message à envoyer
+	 * @param idUser l'identifiant de l'utilisateur destinataire
+	 */
 	public void sendMessageToId(Message mess, int idUser) {
 		ConnectedClient client = clients.get(idUser);
 		if(mess.getSenderString() == null){
@@ -112,11 +127,12 @@ public class Server {
 		client.sendMessage(mess);
 	}
 
+	/**Déconnecte un client connecté.
+	 * @param connectedClient le client connecté à déconnecter
+	 */
 	public void disconnectedClient(ConnectedClient connectedClient) {
 		connectedClient.closeClient();
 		clients.remove(connectedClient);
 		broadcastMessage(new Message(connectedClient.getPlayerUsername(), " déconnecté"), connectedClient.getId());
-//		addClient(this.waitingClients.get(0));
-//		this.waitingClients.remove(0);
 	}
 }

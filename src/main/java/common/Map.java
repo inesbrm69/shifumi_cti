@@ -5,17 +5,7 @@ import java.io.Serializable;
 import common.enums.tileType;
 
 public class Map implements Serializable {
-	//private tileType tile;
-	//private String mapPng;
 	private String[][] mapArray = new String[17][9];
-
-	//public String getMapPng() {
-		//return mapPng;
-	//}
-
-//	public void setMapPng(String mapPng) {
-//		this.mapPng = mapPng;
-//	}
 
 	public String[][] getMapArray() {
 		return mapArray;
@@ -32,7 +22,11 @@ public class Map implements Serializable {
 	public String getMapTile(int x, int y){
 		return this.mapArray[y][x];
 	}
-	
+
+	/**
+	 * initialise une carte en créant un tableau de chaînes de caractères représentant les différents types de cases de la carte.
+	 * Chaque case est représentée par une chaîne de caractères qui indique son type
+	 */
 	public void initMap() {
 		String[][] tab = {
 							{"v","v","v","v","v","v","v","v","v","v","v","v","v","v","v","v","v"},

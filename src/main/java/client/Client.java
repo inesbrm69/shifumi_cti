@@ -145,11 +145,9 @@ public class Client implements IClient {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 
-	/** Méthode qui affiche le message sur le chat au client
+	/** Méthode qui affiche un nouveau message dans l'interface utilisateur du jeu.
 	 * @param mess
 	 */
 	public void messageReceived(Message mess) {
