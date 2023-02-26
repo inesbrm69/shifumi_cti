@@ -562,11 +562,16 @@ public class JeuController implements Initializable{
 
     }
 
+    /**Méthode qui affiche les autres joueurs sur la carte.
+     * Cette méthode utilise une tâche de fond pour afficher les joueurs sur la carte dans l'interface utilisateur.
+     * La méthode utilise une image et un label pour représenter chaque joueur. Le label affiche le nom d'utilisateur du joueur.
+     * @param playerCoords les coordonnées du joueur à afficher sur la carte
+     */
     public void printOthers(PlayerCoords playerCoords){
         //Platform.runLater() parce que sinon l'action n'est pas faite sur le thread de JavaFX
         Platform.runLater(() -> {
-            System.out.println("ok");
             ImageView otherPlayer = new ImageView();
+            Label username = new Label(playerCoords.getPlayer().getUsername());
             switch (playerCoords.getPlayer().getPerso()) {
                 case 0:
                     otherPlayer.setImage(new Image("0down1.png"));
@@ -599,6 +604,30 @@ public class JeuController implements Initializable{
             map.setMapTile(playerCoords.getOldX(), playerCoords.getOldY(), playerCoords.getPastTile());
             map.setMapTile(playerCoords.getPlayer().getX(), playerCoords.getPlayer().getY(), "o");
             gridMap.add(otherPlayer, playerCoords.getPlayer().getX(), playerCoords.getPlayer().getY());
+
+            // Obtient les nouvelles coordonnées du joueur
+            int newX = playerCoords.getPlayer().getX();
+            int newY = playerCoords.getPlayer().getY();
+
+            // Supprime l'image précédente du joueur
+            gridMap.getChildren().remove(otherPlayer);
+
+            // Ajoute la nouvelle image du joueur aux nouvelles coordonnées
+            gridMap.add(otherPlayer, newX, newY);
+            // Supprime le label précédent s'il existe
+            Label usernameOthers = new Label();
+            gridMap.getChildren().remove(usernameOthers);
+
+            // Ajoute le nouveau label avec le nom d'utilisateur aux nouvelles coordonnées,
+            // mais avec un décalage vertical pour le placer au-dessus du joueur
+            username.setStyle("-fx-font-size: 14px;" +
+                    "-fx-font-weight: bold;");
+            GridPane.setHalignment(username, HPos.LEFT); // centre le texte horizontalement
+            GridPane.setValignment(username, VPos.BOTTOM); // place le texte en haut de la cellule
+            gridMap.add(username, newX, newY-1);
+            usernameOthers = username;
+
+
         });
     }
 
