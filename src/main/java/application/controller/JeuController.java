@@ -591,7 +591,7 @@ public class JeuController implements Initializable{
 
             }
 
-            Node node = null;
+            /*Node node = null;
             for (Node child : gridMap.getChildren()) {
                 if (GridPane.getColumnIndex(child) == playerCoords.getOldX() && GridPane.getRowIndex(child) == playerCoords.getOldY()) {
                     node = child;
@@ -600,7 +600,7 @@ public class JeuController implements Initializable{
             }
             if (node != null) {
                 gridMap.getChildren().remove(node);
-            }
+            }*/
 
             map.setMapTile(playerCoords.getOldX(), playerCoords.getOldY(), playerCoords.getPastTile());
             map.setMapTile(playerCoords.getPlayer().getX(), playerCoords.getPlayer().getY(), "o");

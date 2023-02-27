@@ -118,7 +118,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="errorMsg" layoutX="107.0" layoutY="98.0" prefHeight="30.0" prefWidth="986.0" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="errorMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="107.0" layoutY="98.0" prefHeight="30.0" prefWidth="986.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="18.0" />
          </font></Label>
