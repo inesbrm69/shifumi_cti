@@ -101,7 +101,7 @@ public class Server {
 	}
 
 	public void broadcastCoords(PlayerCoords playerCoords, int id) {
-		updateMap(playerCoords, id);
+		//updateMap(playerCoords, id);
 		for (ConnectedClient client : clients) {
 			if (client.getId() != id) {
 				client.sendCoords(playerCoords);
