@@ -72,6 +72,8 @@ public class JeuController implements Initializable{
 
     private String pastTile = "f";
 
+    private Image[][][] persoImages;
+
     private ConnectedClient connectedClient;
 
     public Button getBtnSend() {
@@ -295,6 +297,7 @@ public class JeuController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         map.initMap();
+        initPersoImages();
         setPlayerInterface();
         setPanelGame();
     }
@@ -321,61 +324,16 @@ public class JeuController implements Initializable{
                     map.setMapTile(x, y, pastTile);
                     String tileToSend = pastTile;
 
-                    switch (this.player.getPerso()){
-                        case 0:
-                            if(map.getMapArray()[y-1][x].equals("c")){
-                                if(map.getMapArray()[y-1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("0left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("0right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("0up1.png"));
-                            }
-                            break;
-                        case 1:
-                            if(map.getMapArray()[y-1][x].equals("c")){
-                                if(map.getMapArray()[y-1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("1left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("1right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("1up1.png"));
-                            }
-                            break;
-                        case 2:
-                            if(map.getMapArray()[y-1][x].equals("c")){
-                                if(map.getMapArray()[y-1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("2left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("2right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("2up1.png"));
-                            }
-                            break;
-                        case 3:
-                            if(map.getMapArray()[y-1][x].equals("c")){
-                                if(map.getMapArray()[y-1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("3left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("3right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("3up1.png"));
-                            }
-                            break;
-                        default:
-                            break;
+                    if(map.getMapArray()[y-1][x].equals("c")){
+                        if(map.getMapArray()[y-1][x-1].equals("t")) {
+                            playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 2, 0));
+                        }
+                        else{
+                            playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 3, 0));
+                        }
+                    }
+                    else{
+                        playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 1, 0));
                     }
 
                     pastTile = map.getMapTile(x, y-1);
@@ -396,62 +354,16 @@ public class JeuController implements Initializable{
                     map.setMapTile(x, y, pastTile);
                     String tileToSend = pastTile;
 
-                    switch (this.player.getPerso()){
-                        case 0:
-                            if(map.getMapArray()[y+1][x].equals("c")){
-                                if(map.getMapArray()[y+1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("0left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("0right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("0down1.png"));
-                            }
-                            break;
-                        case 1:
-                            var ok = map.getMapArray()[y+1][x];
-                            if(map.getMapArray()[y+1][x].equals("c")){
-                                if(map.getMapArray()[y+1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("1left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("1right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("1down1.png"));
-                            }
-                            break;
-                        case 2:
-                            if(map.getMapArray()[y+1][x].equals("c")){
-                                if(map.getMapArray()[y+1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("2left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("2right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("2down1.png"));
-                            }
-                            break;
-                        case 3:
-                            if(map.getMapArray()[y+1][x].equals("c")){
-                                if(map.getMapArray()[y+1][x-1].equals("t")) {
-                                    playerImage.setImage(new Image("3left1.png"));
-                                }
-                                else{
-                                    playerImage.setImage(new Image("3right1.png"));
-                                }
-                            }
-                            else{
-                                playerImage.setImage(new Image("3down1.png"));
-                            }
-                            break;
-                        default:
-                            break;
+                    if(map.getMapArray()[y+1][x].equals("c")){
+                        if(map.getMapArray()[y+1][x-1].equals("t")) {
+                            playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 2, 0));
+                        }
+                        else{
+                            playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 3, 0));
+                        }
+                    }
+                    else{
+                        playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 1, 0));
                     }
 
                     pastTile = map.getMapTile(x, y+1);
@@ -471,23 +383,7 @@ public class JeuController implements Initializable{
                 if(x > 0 && (map.getMapArray()[y][x-1].equals("f") || map.getMapArray()[y][x-1].equals("c"))) {
                     map.setMapTile(x, y, pastTile);
                     String tileToSend = pastTile;
-
-                    switch (this.player.getPerso()){
-                        case 0:
-                            playerImage.setImage(new Image("0left1.png"));
-                            break;
-                        case 1:
-                            playerImage.setImage(new Image("1left1.png"));
-                            break;
-                        case 2:
-                            playerImage.setImage(new Image("2left1.png"));
-                            break;
-                        case 3:
-                            playerImage.setImage(new Image("3left1.png"));
-                            break;
-                        default:
-                            break;
-                    }
+                    playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 2, 0));
 
                     pastTile = map.getMapTile(x-1, y);
                     map.setMapTile(x-1, y, "p");
@@ -507,22 +403,7 @@ public class JeuController implements Initializable{
                     map.setMapTile(x, y, pastTile);
                     String tileToSend = pastTile;
 
-                    switch (this.player.getPerso()){
-                        case 0:
-                            playerImage.setImage(new Image("0right1.png"));
-                            break;
-                        case 1:
-                            playerImage.setImage(new Image("1right1.png"));
-                            break;
-                        case 2:
-                            playerImage.setImage(new Image("2right1.png"));
-                            break;
-                        case 3:
-                            playerImage.setImage(new Image("3right1.png"));
-                            break;
-                        default:
-                            break;
-                    }
+                    playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 3, 0));
 
                     pastTile = map.getMapTile(x+1, y);
                     map.setMapTile(x+1, y, "p");
@@ -728,5 +609,46 @@ public class JeuController implements Initializable{
                 }
                 usernameLabel.setText(playerSingleton.getUsername());
                 scoreLabel.setText(playerSingleton.getScore() + " PTS");
-        }
+    }
+    /**
+     * Initialise un tableau 3D d'images pour récupérer l'image correspondante à la demande
+     */
+    public void initPersoImages(){
+        Image[][][] images = {
+                {
+                        {new Image("0down1.png"), new Image("0down2.png"), new Image("0down3.png"), new Image("0down4.png")},
+                        {new Image("0up1.png"), new Image("0up2.png"), new Image("0up3.png"), new Image("0up4.png")},
+                        {new Image("0left1.png"), new Image("0left2.png"), new Image("0left3.png"), new Image("0left3.png")},
+                        {new Image("0right1.png"), new Image("0right2.png"), new Image("0right3.png"), new Image("0right4.png")}
+                },
+                {
+                        {new Image("1down1.png"), new Image("1down2.png"), new Image("1down3.png"), new Image("1down4.png")},
+                        {new Image("1up1.png"), new Image("1up2.png"), new Image("1up3.png"), new Image("1up4.png")},
+                        {new Image("1left1.png"), new Image("1left2.png"), new Image("1left3.png"), new Image("1left3.png")},
+                        {new Image("1right1.png"), new Image("1right2.png"), new Image("1right3.png"), new Image("1right4.png")}
+                },
+                {
+                        {new Image("2down1.png"), new Image("2down2.png"), new Image("2down3.png"), new Image("2down4.png")},
+                        {new Image("2up1.png"), new Image("2up2.png"), new Image("2up3.png"), new Image("2up4.png")},
+                        {new Image("2left1.png"), new Image("2left2.png"), new Image("2left3.png"), new Image("2left3.png")},
+                        {new Image("2right1.png"), new Image("2right2.png"), new Image("2right3.png"), new Image("2right4.png")},
+                },
+                {
+                        {new Image("3down1.png"), new Image("3down2.png"), new Image("3down3.png"), new Image("3down4.png")},
+                        {new Image("3up1.png"), new Image("3up2.png"), new Image("3up3.png"), new Image("3up4.png")},
+                        {new Image("3left1.png"), new Image("3left2.png"), new Image("3left3.png"), new Image("3left3.png")},
+                        {new Image("3right1.png"), new Image("3right2.png"), new Image("3right3.png"), new Image("3right4.png")}
+                }
+        };
+
+        this.persoImages = images;
+    }
+    /**
+     * Récupère l'image dans le tableau en fonction des index en paramètre
+     * et son score.
+     */
+    private Image getPersoImagesByIndex(int persoType, int direction, int animation){
+        return this.persoImages[persoType][direction][animation];
+    }
+
 }
