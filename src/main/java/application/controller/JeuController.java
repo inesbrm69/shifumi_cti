@@ -454,23 +454,8 @@ public class JeuController implements Initializable{
         Platform.runLater(() -> {
             ImageView otherPlayer = new ImageView();
             Label username = new Label(playerCoords.getPlayer().getUsername());
-            switch (playerCoords.getPlayer().getPerso()) {
-                case 0:
-                    otherPlayer.setImage(new Image("0down1.png"));
-                    break;
-                case 1:
-                    otherPlayer.setImage(new Image("1down1.png"));
-                    break;
-                case 2:
-                    otherPlayer.setImage(new Image("2down1.png"));
-                    break;
-                case 3:
-                    otherPlayer.setImage(new Image("3down1.png"));
-                    break;
-                default:
-                    break;
 
-            }
+            otherPlayer.setImage(getPersoImagesByIndex(playerCoords.getPlayer().getPerso(), 0, 0));
 
             /*Node node = null;
             for (Node child : gridMap.getChildren()) {
@@ -521,23 +506,7 @@ public class JeuController implements Initializable{
      */
     private void setPanelGame() {
         playerImage = new ImageView();
-
-        switch (this.player.getPerso()){
-            case 0:
-                playerImage.setImage(new Image("0down1.png"));
-                break;
-            case 1:
-                playerImage.setImage(new Image("1down1.png"));
-                break;
-            case 2:
-                playerImage.setImage(new Image("2down1.png"));
-                break;
-            case 3:
-                playerImage.setImage(new Image("3down1.png"));
-                break;
-            default:
-                break;
-        }
+        playerImage.setImage(getPersoImagesByIndex(this.player.getPerso(), 0, 0));
         gridMap.add(playerImage, player.getX(), player.getY());
 
 
