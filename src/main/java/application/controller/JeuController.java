@@ -342,7 +342,7 @@ public class JeuController implements Initializable{
                     player.moveUp();
 
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend, 1);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -363,7 +363,7 @@ public class JeuController implements Initializable{
                         }
                     }
                     else{
-                        playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 1, 0));
+                        playerImage.setImage(getPersoImagesByIndex(player.getPerso(), 0, 0));
                     }
 
                     pastTile = map.getMapTile(x, y+1);
@@ -372,7 +372,7 @@ public class JeuController implements Initializable{
                     player.moveDown();
 
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend, 0);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -391,7 +391,7 @@ public class JeuController implements Initializable{
                     player.moveLeft();
 
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend, 2);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -410,7 +410,7 @@ public class JeuController implements Initializable{
 
                     player.moveRight();
                     try {
-                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend);
+                        PlayerCoords playerCoords = new PlayerCoords(player, x, y, tileToSend, 3);
                         this.client.sendCoords(playerCoords);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);

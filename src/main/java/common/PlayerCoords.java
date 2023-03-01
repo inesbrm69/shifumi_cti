@@ -9,11 +9,14 @@ public class PlayerCoords implements Serializable {
     private int oldY;
     private String pastTile;
 
-    public PlayerCoords(Player player, int oldX, int oldY, String oldTile) {
+    private int direction;
+
+    public PlayerCoords(Player player, int oldX, int oldY, String oldTile, int direction) {
         this.player = player;
         this.oldX = oldX;
         this.oldY = oldY;
         this.pastTile = oldTile;
+        this.direction = direction;
     }
 
     public Player getPlayer() {
@@ -46,5 +49,13 @@ public class PlayerCoords implements Serializable {
 
     public void setPastTile(String pastTile) {
         this.pastTile = pastTile;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 }
